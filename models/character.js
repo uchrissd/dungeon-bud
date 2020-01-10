@@ -32,5 +32,22 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  Character.associate = function(models) {
+    Character.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+
+  Character.associate = function(models) {
+    models.Character.hasOne(models.Campaign, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete: "SET NULL"
+    });
+  };
+
   return Character;
 };

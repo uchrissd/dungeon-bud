@@ -19,5 +19,14 @@ module.exports = function(sequelize, DataTypes) {
       unique: true
     }
   });
+
+  Campaign.associate = function(models) {
+    models.Campaign.hasMany(models.Characters, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+  
   return Campaign;
 };
