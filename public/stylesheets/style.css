@@ -1,3 +1,25 @@
+body {
+  background: url(../images/tavernimage.jpg);
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-position:center;
+  background-size: cover;
+}
+
+h2 {
+  color: rgb(255, 255, 255);
+}
+
+.signup {
+  border-radius: 12px;
+}
+
+#logo {
+  margin-top: 5px;
+  height:50px;
+  width: 50px;
+}
+
 form.signup,
 form.login {
   margin-top: 50px;

@@ -1,22 +1,22 @@
 {
   "development": {
     "username": "root",
-    "password": "chris",
+    "password": "",
     "database": "dungeonDb",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "chris",
+    "password: "",
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "1_Student",
-    "database": "database_test",
+    "password": "",
+    "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
