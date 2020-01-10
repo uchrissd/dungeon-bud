@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Campaign.associate = function(models) {
-    models.Campaign.hasMany(models.Characters, {
+    models.Campaign.hasMany(models.Character, {
       foreignKey: {
         allowNull: false
       }
