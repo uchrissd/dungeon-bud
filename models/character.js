@@ -32,5 +32,13 @@ module.exports = function(sequelize, Sequelize) {
     }
   });
 
+  Character.associate = function(models) {
+    Character.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+
   return Character;
 };
