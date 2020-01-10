@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
-    "database": "dungeonDb",
-    "host": "127.0.0.1",
+    "username": "jp4oqhywxxp61he7",
+    "password": "se2ogk6222zq6mil",
+    "database": "mcnzs8jgyfufhh8g",
+    "host": "kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password: "",
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "jp4oqhywxxp61he7",
+    "password": "se2ogk6222zq6mil",
+    "database": "mcnzs8jgyfufhh8g",
+    "host": "kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "",
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "jp4oqhywxxp61he7",
+    "password": "se2ogk6222zq6mil",
+    "database": "mcnzs8jgyfufhh8g",
+    "host": "kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
