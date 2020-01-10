@@ -44,7 +44,8 @@ module.exports = function(sequelize, DataTypes) {
     models.Character.hasOne(models.Campaign, {
       foreignKey: {
         allowNull: false
-      }
+      },
+      onDelete: "SET NULL"
     });
   };
 
