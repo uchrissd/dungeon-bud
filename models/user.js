@@ -29,7 +29,12 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   User.associate = function(models) {
-    models.User.hasMany(models.Character);
+    models.User.hasMany(models.Character, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete: "cascade"
+    });
   };
 
   return User;

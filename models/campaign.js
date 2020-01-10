@@ -21,7 +21,11 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Campaign.associate = function(models) {
-    models.Campaign.hasMany(models.Characters);
+    models.Campaign.hasMany(models.Characters, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
   };
   
   return Campaign;

@@ -41,7 +41,11 @@ module.exports = function(sequelize, DataTypes) {
   };
 
   Character.associate = function(models) {
-    models.Character.hasOne(models.Campaign);
+    models.Character.hasOne(models.Campaign, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
   };
 
   return Character;
