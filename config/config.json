@@ -18,6 +18,7 @@
     "password": "se2ogk6222zq6mil",
     "database": "mcnzs8jgyfufhh8g",
     "host": "kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+
     "dialect": "mysql"
   }
 }
