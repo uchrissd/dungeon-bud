@@ -1,38 +1,43 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, Sequelize) {
   const Character = sequelize.define("Character", {
     // The email cannot be null, and must be a proper email before creation
     name: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     },
     // The password cannot be null
     race: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     },
 
     class: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     },
 
     level: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
       unique: true
     },
 
     bio: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     }
   });
 
-  Character.associate = function(models) {
+  Character.associate = function (models) {
+    Character.belongsTo(models.Campaign, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
     Character.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
