@@ -20,7 +20,9 @@ h2 {
 }
 
 .signup {
-  border-radius: 2px;
+  margin-top: 15px;
+  border-color: rgb(36, 36, 36);
+  border-radius: 4px;
   background: url(../images/old-yellow-and-brown-parchment-paper-900x1204.jpg);
   background-repeat:no-repeat;
   background-attachment:fixed;
@@ -35,6 +37,7 @@ h2 {
 
 #logo {
   margin-top: 5px;
+  margin-bottom: -12px;
   height:50px;
   width: 50px;
 }
