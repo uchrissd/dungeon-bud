@@ -21,7 +21,8 @@ h2 {
 
 .signup {
   margin-top: 15px;
-  border-color: rgb(36, 36, 36);
+  border: solid rgb(36, 36, 36);
+  border-width: 1.5px;
   border-radius: 4px;
   background: url(../images/old-yellow-and-brown-parchment-paper-900x1204.jpg);
   background-repeat:no-repeat;
@@ -31,8 +32,27 @@ h2 {
   color: #424242;
 }
 
-.signup h2{
+.signup h2 {
   color: black
+}
+
+.form-group input[type=text]:focus, input[type=email]:focus, input[type=password]:focus + label {
+  color: rgb(99, 21, 21) !important;
+}
+
+.form-group input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+  border-bottom: 1px solid rgb(99, 21, 21) !important;
+  box-shadow: 0 1px 0 0 rgb(99, 21, 21) !important;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: bolder;
+  color: black;
+}
+
+::-webkit-input-placeholder {
+  color: #424242;
 }
 
 #logo {
