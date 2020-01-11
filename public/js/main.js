@@ -5,7 +5,7 @@ $(document).ready(function() {
     $(".member-name").text(data.name);
   });
 
-  $.get("/api/user_data").then(function(data){
+  $.get("/api/user_data").then(function(data) {
     $(".member-name").attr("id", data.id);
   });
 });
