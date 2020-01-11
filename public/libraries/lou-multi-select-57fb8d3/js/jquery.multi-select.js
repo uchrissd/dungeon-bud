@@ -542,3 +542,4 @@
 };
 
 }(window.jQuery);
+module.exports(multiSelect);
