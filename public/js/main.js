@@ -1,4 +1,4 @@
-var multiselect = require("../libraries/lou-multi-select-57fb8d3/js/jquery.multi-select");
+//var multiselect = require("../libraries/lou-multi-select-57fb8d3/js/jquery.multi-select");
 var characterDiv = $(characterDiv);
 var campaignDiv = $(campaignDiv);
 

@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "jp4oqhywxxp61he7",
-    "password": "se2ogk6222zq6mil",
-    "database": "mcnzs8jgyfufhh8g",
-    "host": "kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "root",
+    "password": "1_Student",
+    "database": "dungeondb",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
-    "username": "jp4oqhywxxp61he7",
-    "password": "se2ogk6222zq6mil",
-    "database": "mcnzs8jgyfufhh8g",
-    "host": "kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "root",
+    "password": "1_Student",
+    "database": "dungeondb",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "production": {
-    "username": "jp4oqhywxxp61he7",
-    "password": "se2ogk6222zq6mil",
-    "database": "mcnzs8jgyfufhh8g",
-    "host": "kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "root",
+    "password": "1_Student",
+    "database": "dungeondb",
+    "host": "localhost",
     "dialect": "mysql"
   }
 }
