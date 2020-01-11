@@ -68,10 +68,10 @@ module.exports = function(app) {
   });
 
   //get all characters for a user
-  app.get("api/characters/user/:userId", function(req, res) {
+  app.get("api/characters/user/:email", function(req, res) {
     db.Character.findAll({
       where: {
-        userId: req.userId
+        email: req.email
       }
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
@@ -79,10 +79,10 @@ module.exports = function(app) {
   });
 
   //get all campaigns for a user
-  app.get("api/campaigns/user/:userId", function(req, res) {
+  app.get("api/campaigns/user/:email", function(req, res) {
     db.Campaign.findAll({
       where: {
-        userId: req.userId
+        email: req.email
       }
     }).then(function(dbCampaign) {
       res.json(dbCampaign);

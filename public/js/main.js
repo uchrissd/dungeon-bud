@@ -12,7 +12,7 @@ $(document).ready(function () {
   $.get("/api/user_data").then(function (data) {
     $(".member-name").attr("id", data.id);
   });
-  var userId = $(".member-name").attr("id");
+  var userEmail = $(".member-name").text(data.email);
 
   // eslint-disable-next-line no-use-before-define
   getCharacterByUser(userId);
@@ -20,15 +20,15 @@ $(document).ready(function () {
   getCampaignByUser(userId);
 });
 
-function getCharacterByUser(userId) {
-  $.get("/api/character/user/" + userId, function (data) {
+function getCharacterByUser(userEmail) {
+  $.get("/api/character/user/" + userEmail, function (data) {
     if (data) {
       // If this character exists, prefill our cms forms with its data
-      nameInput.val(data.name);
-      raceInput.val(data.race);
-      classInput.val(data.class);
-      levelInput.val(data.level);
-      bioInput.val(data.bio);
+      characterName.val(data.name);
+      characterRace.val(data.race);
+      characterClass.val(data.class);
+      characterLevel.val(data.level);
+      characterBio.val(data.bio);
       // If we have a post with this id, set a flag for us to know to update the post
       // when we hit submit
       updating = true;
