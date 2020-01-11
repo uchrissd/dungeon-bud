@@ -70,4 +70,3 @@ function getCampaignByUser(userId) {
   //   alertDiv.text("You must create an Author before you can create a Post.");
   //   authorContainer.append(alertDiv);
   // }
-
