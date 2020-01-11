@@ -1,0 +1,45 @@
+h1, h2, h3, h4, h5, p, a {
+  font-family: 'Neucha', cursive;
+}
+
+body {
+  background: url(../images/tavernimage.jpg);
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-position:center;
+  background-size: cover;
+}
+
+label {
+  color: #424242;
+}
+
+h2 {
+  color: rgb(255, 255, 255);
+  -webkit-text-stroke: 1px black;
+}
+
+.signup {
+  border-radius: 2px;
+  background: url(../images/old-yellow-and-brown-parchment-paper-900x1204.jpg);
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-position:center;
+  background-size: cover;
+  color: #424242;
+}
+
+.signup h2{
+  color: black
+}
+
+#logo {
+  margin-top: 5px;
+  height:50px;
+  width: 50px;
+}
+
+form.signup,
+form.login {
+  margin-top: 50px;
+}
