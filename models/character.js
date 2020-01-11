@@ -1,4 +1,4 @@
-module.exports = function(sequelize, Sequelize) {
+module.exports = function (sequelize, Sequelize) {
   const Character = sequelize.define("Character", {
     // The email cannot be null, and must be a proper email before creation
     name: {
@@ -32,7 +32,12 @@ module.exports = function(sequelize, Sequelize) {
     }
   });
 
-  Character.associate = function(models) {
+  Character.associate = function (models) {
+    Character.belongsTo(models.Campaign, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
     Character.belongsTo(models.User, {
       foreignKey: {
         allowNull: false

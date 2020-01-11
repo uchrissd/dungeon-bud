@@ -22,11 +22,14 @@ module.exports = function(sequelize, DataTypes) {
 
   Campaign.associate = function(models) {
     models.Campaign.hasMany(models.Character, {
+      onDelete: "set null"
+    });
+    models.Campaign.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       }
     });
   };
-  
+
   return Campaign;
 };
