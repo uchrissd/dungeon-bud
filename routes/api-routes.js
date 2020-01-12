@@ -57,10 +57,11 @@ module.exports = function(app) {
   });
 
   //get specific character from db
-  app.get("api/characters/:id", function(req, res) {
+  app.get("api/character/:id", function(req, res) {
+    console.log(req);
     db.Character.findOne({
       where: {
-        name: req.body.name
+        name: req.character.name
       }
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
@@ -68,21 +69,26 @@ module.exports = function(app) {
   });
 
   //get all characters for a user
-  app.get("api/characters/user/:email", function(req, res) {
+  app.get("api/character/user/:id", function(req, res) {
+    console.lod(req);
     db.Character.findAll({
       where: {
-        email: req.email
+        id: req.body.id
       }
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
+    }).catch(function(err){
+      throw err;
     });
+
   });
 
   //get all campaigns for a user
-  app.get("api/campaigns/user/:email", function(req, res) {
+  app.get("api/campaigns/user/:id", function(req, res) {
+    console.log(req);
     db.Campaign.findAll({
       where: {
-        email: req.email
+        id: req.body.id
       }
     }).then(function(dbCampaign) {
       res.json(dbCampaign);
@@ -108,7 +114,8 @@ module.exports = function(app) {
   });
 
   //add characters to the db
-  app.post("api/characters/", function(req, res) {
+  app.post("api/character", function(req, res) {
+    console.log(req);
     db.Character.create({
       name: req.body.name,
       race: req.body.race,
@@ -133,7 +140,7 @@ module.exports = function(app) {
   });
 
   //update character in the db
-  app.put("api/characters/:id", function(req, res) {
+  app.put("api/character/:id", function(req, res) {
     db.Character.update({
       name: req.body.name,
       race: req.body.race,
@@ -166,7 +173,7 @@ module.exports = function(app) {
     });
   });
 
-  app.delete("api/characters/:id", function(req, res) {
+  app.delete("api/character/:id", function(req, res) {
     db.Characters.destroy({
       where: {
         id: req.body.id
