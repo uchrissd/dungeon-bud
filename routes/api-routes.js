@@ -50,7 +50,7 @@ module.exports = function(app) {
   });
 
   //get all characters from the db
-  app.get("api/characters", function(req, res) {
+  app.get("api/characters/", function(req, res) {
     db.Character.findAll({}).then(function(dbCharacter) {
       res.json(dbCharacter);
     });
@@ -108,13 +108,14 @@ module.exports = function(app) {
   });
 
   //add characters to the db
-  app.post("api/characters", function(req, res) {
+  app.post("api/characters/", function(req, res) {
     db.Character.create({
       name: req.body.name,
       race: req.body.race,
       class: req.body.class,
       level: req.body.level,
-      bio: req.body.bio
+      bio: req.body.bio,
+      userId: req.body.userId
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
     });
@@ -138,7 +139,8 @@ module.exports = function(app) {
       race: req.body.race,
       class: req.body.class,
       level: req.body.level,
-      bio: req.body.bio
+      bio: req.body.bio,
+      userId: req.body.userId
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
     });

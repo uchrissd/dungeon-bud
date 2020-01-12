@@ -1,34 +1,36 @@
 //var multiselect = require("../libraries/lou-multi-select-57fb8d3/js/jquery.multi-select");
 var characterDiv = $(characterDiv);
 var campaignDiv = $(campaignDiv);
+var nameInput = $("input#charName");
+    var raceInput = $("input#charRace");
+    var classInput = $("input#charClass");
+    var levelInput = $("input#charLevel");
+    var bioInput = $("input#charBio");
 
 $(document).ready(function () {
+  
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   $.get("/api/user_data").then(function (data) {
     $(".member-name").text(data.name);
-  });
-
-  $.get("/api/user_data").then(function (data) {
     $(".member-name").attr("id", data.id);
-  });
-  var userEmail = $(".member-name").text(data.email);
-
-  // eslint-disable-next-line no-use-before-define
+    var userId = $(".member-name").attr("id");
+    // eslint-disable-next-line no-use-before-define
   getCharacterByUser(userId);
   // eslint-disable-next-line no-use-before-define
   getCampaignByUser(userId);
+  });
 });
 
-function getCharacterByUser(userEmail) {
-  $.get("/api/character/user/" + userEmail, function (data) {
+function getCharacterByUser(userId) {
+  $.get("/api/character/user/" + userId, function (data) {
     if (data) {
       // If this character exists, prefill our cms forms with its data
-      characterName.val(data.name);
-      characterRace.val(data.race);
-      characterClass.val(data.class);
-      characterLevel.val(data.level);
-      characterBio.val(data.bio);
+      nameInput.val(data.name);
+      raceInput.val(data.race);
+      classInput.val(data.class);
+      levelInput.val(data.level);
+      bioInput.val(data.bio);
       // If we have a post with this id, set a flag for us to know to update the post
       // when we hit submit
       updating = true;
