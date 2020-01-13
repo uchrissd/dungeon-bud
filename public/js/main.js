@@ -2,13 +2,13 @@
 var characterDiv = $(".userCharacters");
 var campaignDiv = $("campaignDiv");
 var nameInput = $("input#charName");
-var raceInput = $("input#charRace");
-var classInput = $("input#charClass");
+var raceSelect = $("select.race");
+var classSelect = $("select.class");
 var levelInput = $("input#charLevel");
 var bioInput = $("input#charBio");
 var titleInput = $("input#campTitle");
 var descriptionInput = $("input#campDesc");
-var charactersInput = $("input#campChar");
+var charactersInput = $("select.characters");
 
 $(document).ready(function () {
   $.get("/api/user_data").then(function (data) {
@@ -29,8 +29,8 @@ $(document).ready(function () {
       // Constructing a newPost object to hand to the database
       var newCharacter = {
         name: nameInput.val().trim(),
-        race: raceInput.val().trim(),
-        class: classInput.val().trim(),
+        race: raceSelect.val().trim(),
+        class: classSelect.val().trim(),
         level: levelInput.val().trim(),
         bio: bioInput.val().trim(),
         userId: data.id
@@ -75,7 +75,7 @@ $(document).ready(function () {
       var newCampaign = {
         title: titleInput.val().trim(),
         description: descriptionInput.val().trim(),
-        characters: charactersInput.val().trim(),
+        characters: JSON.stringify(charactersInput.val()),
         userId: data.id
       };
 
@@ -133,6 +133,75 @@ $(document).ready(function () {
       });
     }
   });
+  function classList() {
+    $.ajax({
+      method: "GET",
+      url: "https://api.open5e.com/classes/",
+    })
+      .then(function (data) {
+        var classes = [];
+        console.log(data.results);
+        for (i = 0; i < data.results.length; i++) {
+          classes.push(data.results[i].name);
+        }
+        renderClassDropdown(classes);
+      });
+  }
+  function renderClassDropdown(classes) {
+    var classSelect = $("select.class");
+    for (i = 0; i < classes.length; i++) {
+      var option = $("<option value=" + classes[i] + ">" + classes[i] + "</option>");
+      classSelect.append(option);
+    }
+  }
+
+  function raceList() {
+    $.ajax({
+      method: "GET",
+      url: "https://api.open5e.com/races/",
+    })
+      .then(function (data) {
+        var races = [];
+        console.log(data.results);
+        for (i = 0; i < data.results.length; i++) {
+          races.push(data.results[i].name);
+        }
+        renderRaceDropdown(races);
+      });
+  }
+  function renderRaceDropdown(races) {
+    var raceSelect = $("select.race");
+    for (i = 0; i < races.length; i++) {
+      var option = $("<option value=" + races[i] + ">" + races[i] + "</option>");
+      raceSelect.append(option);
+    }
+  }
+
+  function characterList() {
+    $.ajax({
+      method: "GET",
+      url: "/api/character"
+    }).then(function (data) {
+      console.log(data);
+      var characters = [];
+      console.log(data);
+      for (i = 0; i < data.length; i++) {
+        characters.push(data[i].name);
+      }
+      renderCharacterDropdown(characters);
+    });
+  }
+
+  function renderCharacterDropdown(characters) {
+    var characterSelect = $("select.characters");
+    for (i = 0; i < characters.length; i++) {
+      var option = $("<option value=" + characters[i] + ">" + characters[i] + "</option>");
+      characterSelect.append(option);
+    }
+  }
+  classList();
+  raceList();
+  characterList();
 });
 
 

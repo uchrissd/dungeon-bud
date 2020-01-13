@@ -22,6 +22,7 @@ module.exports = function (sequelize, Sequelize) {
       foreignKey: "campaign_id",
       sourceKey: "id"
     });
+    Campaign.belongsTo(models.User);
   };
   return Campaign;
 };

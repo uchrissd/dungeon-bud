@@ -52,10 +52,6 @@ module.exports = function(app) {
   //get all characters from the db
   app.get("/api/character", function(req, res) {
     db.Character.findAll({
-      include: [
-        {model: db.User},
-        {model: db.Campaign}
-      ]
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
     });
@@ -67,11 +63,7 @@ module.exports = function(app) {
     db.Character.findOne({
       where: {
         id: req.params.id
-      },
-      include: [
-        {model: db.User},
-        {model: db.Campaign}
-      ]
+      }
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
     });
@@ -147,7 +139,6 @@ module.exports = function(app) {
       level: req.body.level,
       bio: req.body.bio,
     }).then(function(dbCharacter) {
-      db.Character.addUser(parseInt(req.body.userId));
       res.json(dbCharacter);
     });
   });

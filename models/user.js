@@ -33,12 +33,12 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   User.associate = function(models) {
-    User.hasMany(models.Character, {
+    User.hasMany(models.Campaign, {
       name: "userId",
       type: sequelize.INTEGER,
       onDelete: "cascade"
     });
-    User.hasMany(models.Campaign, {
+    User.hasMany(models.Character, {
       name: "userId",
       type: sequelize.INTEGER,
       onDelete: "cascade"

@@ -46,3 +46,10 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
+select{
+  display: inline-block;
+}
+select p{
+  color: white;
+}
