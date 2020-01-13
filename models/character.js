@@ -3,47 +3,36 @@ module.exports = function (sequelize, Sequelize) {
     // The email cannot be null, and must be a proper email before creation
     name: {
       type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
     // The password cannot be null
     race: {
       type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
 
     class: {
       type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
 
     level: {
       type: Sequelize.INTEGER,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
 
     bio: {
       type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     }
   });
-
-  Character.associate = function (models) {
-    Character.belongsTo(models.Campaign, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-    Character.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      }
+  Character.associate = function(models){
+    Character.belongsTo(models.User,{
     });
   };
-
+  Character.associate = function(models) {
+    Character.belongsTo(models.Campaign, {
+    });
+  };
   return Character;
 };

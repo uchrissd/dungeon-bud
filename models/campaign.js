@@ -1,35 +1,28 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, Sequelize) {
   const Campaign = sequelize.define("Campaign", {
     // The email cannot be null, and must be a proper email before creation
     title: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     },
     // The password cannot be null
     description: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     },
-
     characters: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      type: Sequelize.STRING,
+      allowNull: true
     }
   });
-
-  Campaign.associate = function(models) {
-    models.Campaign.hasMany(models.Character, {
-      onDelete: "set null"
+  Campaign.associate = function (models) {
+    Campaign.hasMany(models.Character, {
+      foreignKey: "campaign_id",
+      sourceKey: "id"
     });
-    models.Campaign.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
+    Campaign.belongsTo(models.User);
   };
-
   return Campaign;
 };

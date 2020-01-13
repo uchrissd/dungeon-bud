@@ -50,18 +50,19 @@ module.exports = function(app) {
   });
 
   //get all characters from the db
-  app.get("api/characters/", function(req, res) {
-    db.Character.findAll({}).then(function(dbCharacter) {
+  app.get("/api/character", function(req, res) {
+    db.Character.findAll({
+    }).then(function(dbCharacter) {
       res.json(dbCharacter);
     });
   });
 
   //get specific character from db
-  app.get("api/character/:id", function(req, res) {
+  app.get("/api/character/:id", function(req, res) {
     console.log(req);
     db.Character.findOne({
       where: {
-        name: req.character.name
+        id: req.params.id
       }
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
@@ -69,12 +70,16 @@ module.exports = function(app) {
   });
 
   //get all characters for a user
-  app.get("api/character/user/:id", function(req, res) {
-    console.lod(req);
+  app.get("/api/character/user/:id", function(req, res) {
+    console.log("line 73" + JSON.stringify(req.params.id));
     db.Character.findAll({
       where: {
-        id: req.body.id
-      }
+        userId: req.params.id
+      },
+      include: [
+        {model: db.User},
+        {model: db.Campaign}
+      ]
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
     }).catch(function(err){
@@ -84,63 +89,74 @@ module.exports = function(app) {
   });
 
   //get all campaigns for a user
-  app.get("api/campaigns/user/:id", function(req, res) {
-    console.log(req);
+  app.get("/api/campaign/user/:id", function(req, res) {
+    console.log("line 73" + JSON.stringify(req.params.id));
     db.Campaign.findAll({
       where: {
-        id: req.body.id
-      }
+        UserId: req.params.id
+      },
+      include: [
+        {model: db.User},
+        {model: db.Character}
+      ]
+    }).then(function(dbCampaign) {
+      res.json(dbCampaign);
+    }).catch(function(err){
+      throw err;
+    });
+  });
+
+  //get campaigns from the db
+  app.get("/api/campaigns", function(req, res) {
+    db.Campaign.findAll({
+      include: [
+        {model: db.User},
+        {model: db.Character}
+      ]
     }).then(function(dbCampaign) {
       res.json(dbCampaign);
     });
   });
 
-  //get campaigns from the db
-  app.get("api/campaigns", function(req, res) {
-    db.Character.findAll({}).then(function(dbCharacter) {
-      res.json(dbCharacter);
-    });
-  });
-
   //get specific campaign from db
-  app.get("api/campaigns/:id", function(req, res) {
-    db.Character.findOne({
-      where: {
-        title: req.body.id
-      }
-    }).then(function(dbCharacter) {
-      res.json(dbCharacter);
-    });
-  });
+  // app.get("/api/campaigns", function(req, res) {
+  //   db.Character.findOne({
+  //     where: {
+  //       UserId: req.body.id
+  //     }
+  //   }).then(function(dbCharacter) {
+  //     res.json(dbCharacter);
+  //   });
+  // });
 
   //add characters to the db
-  app.post("api/character", function(req, res) {
-    console.log(req);
+  app.post("/api/character", function(req, res) {
+    console.log(req.body);
     db.Character.create({
       name: req.body.name,
       race: req.body.race,
       class: req.body.class,
       level: req.body.level,
       bio: req.body.bio,
-      userId: req.body.userId
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
     });
   });
 
   //add campaigns to the db
-  app.post("api/campaigns", function(req, res) {
+  app.post("/api/campaigns", function(req, res) {
     db.Campaign.create({
       title: req.body.title,
       description: req.body.description,
-      characters: req.body.characters
+      characters: req.body.characters,
+      userId: parseInt(req.body.userId)
     }).then(function(dbCampaign) {
       res.json(dbCampaign);
     });
   });
 
   //update character in the db
-  app.put("api/character/:id", function(req, res) {
+  app.put("/api/character/:id", function(req, res) {
     db.Character.update({
       name: req.body.name,
       race: req.body.race,
@@ -153,7 +169,7 @@ module.exports = function(app) {
     });
   });
 
-  app.put("api/campaigns/:id", function(req, res) {
+  app.put("/api/campaigns/:id", function(req, res) {
     db.Campaign.update({
       title: req.body.title,
       description: req.body.description,
@@ -163,20 +179,20 @@ module.exports = function(app) {
     });
   });
 
-  app.delete("api/campaigns/:id", function(req, res) {
+  app.delete("/api/campaigns/:id", function(req, res) {
     db.Campaign.destroy({
       where: {
-        id: req.body.id
+        id: req.params.id
       }
     }).then(function(dbCampaign) {
       res.json(dbCampaign);
     });
   });
 
-  app.delete("api/character/:id", function(req, res) {
+  app.delete("/api/character/:id", function(req, res) {
     db.Characters.destroy({
       where: {
-        id: req.body.id
+        id: req.params.id
       }
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
