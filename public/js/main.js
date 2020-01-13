@@ -1,22 +1,23 @@
 //var multiselect = require("../libraries/lou-multi-select-57fb8d3/js/jquery.multi-select");
-var characterDiv = $("characterDiv");
+var characterDiv = $(".userCharacters");
 var campaignDiv = $("campaignDiv");
 var nameInput = $("input#charName");
 var raceInput = $("input#charRace");
 var classInput = $("input#charClass");
 var levelInput = $("input#charLevel");
 var bioInput = $("input#charBio");
+var titleInput = $("input#campTitle");
+var descriptionInput = $("input#campDesc");
+var charactersInput = $("input#campChar");
 
 $(document).ready(function () {
   $.get("/api/user_data").then(function (data) {
-    var userId = data.id;
     $(".member-name").text(data.name);
     $(".member-name").attr("id", data.id);
     // eslint-disable-next-line no-use-before-define
-    getCharacterByUser(userId);
+    getCharacterByUser(data.id);
     // eslint-disable-next-line no-use-before-define
-    getCampaignByUser(userId);
-    console.log(userId);
+    getCampaignByUser(data.id);
 
     $("form.character").on("submit", function handleFormSubmit(event) {
       event.preventDefault();
@@ -24,6 +25,7 @@ $(document).ready(function () {
       if (!nameInput.val().trim()) {
         return;
       }
+      console.log(data.id);
       // Constructing a newPost object to hand to the database
       var newCharacter = {
         name: nameInput.val().trim(),
@@ -31,14 +33,14 @@ $(document).ready(function () {
         class: classInput.val().trim(),
         level: levelInput.val().trim(),
         bio: bioInput.val().trim(),
-        UserId: userId
+        userId: data.id
       };
 
-      console.log(newCharacter);
       submitCharacter(newCharacter);
 
       // Submits a new character and brings user to main page upon completion
       function submitCharacter(newCharacter) {
+        console.log(newCharacter);
         $.ajax({
           method: "POST",
           url: "/api/character",
@@ -53,7 +55,7 @@ $(document).ready(function () {
       function updateCharacter(character) {
         $.ajax({
           method: "PUT",
-          url: "/api/characters/",
+          url: "/api/character/:id",
           data: character
         })
           .then(function () {
@@ -61,40 +63,81 @@ $(document).ready(function () {
           });
       }
     });
-  });
-  // This file just does a GET request to figure out which user is logged in
-  // and updates the HTML on the page
-  $.get("/api/user_data").then(function (data) {
 
+    $("form.campaign").on("submit", function handleFormSubmit(event) {
+      event.preventDefault();
+      // Wont submit the character if we are missing a body or a title
+      if (!titleInput.val().trim()) {
+        return;
+      }
+      console.log(data.id);
+      // Constructing a newPost object to hand to the database
+      var newCampaign = {
+        title: titleInput.val().trim(),
+        description: descriptionInput.val().trim(),
+        characters: charactersInput.val().trim(),
+        userId: data.id
+      };
+
+      submitCampaign(newCampaign);
+
+      // Submits a new character and brings user to main page upon completion
+      function submitCampaign(newCampaign) {
+        console.log(newCampaign);
+        $.ajax({
+          method: "POST",
+          url: "/api/campaigns",
+          data: newCampaign
+        })
+          .then(function () {
+            window.location.href = "/main";
+          });
+      }
+
+      // Update a given post, bring user to the blog page when done
+      function updateCampaign(campaign) {
+        $.ajax({
+          method: "PUT",
+          url: "/api/campaigns/:id",
+          data: campaign
+        })
+          .then(function () {
+            window.location.href = "/main";
+          });
+      }
+    });
+
+    function getCharacterByUser(userId) {
+      console.log(userId);
+      $.get("/api/character/user/" + userId, function (data) {
+        if (data) {
+          // If this character exists, prefill our cms forms with its data
+          nameInput.val(data.name);
+          raceInput.val(data.race);
+          classInput.val(data.class);
+          levelInput.val(data.level);
+          bioInput.val(data.bio);
+        }
+      });
+    }
+    function getCampaignByUser(userId) {
+      $.get("/api/campaign/user/" + userId, function (data) {
+        if (data) {
+          // If this character exists, prefill our cms forms with its data
+          titleInput.val(data.title);
+          descriptionInput.val(data.description);
+          charactersInput.val(data.characters);
+          // If we have a post with this id, set a flag for us to know to update the post
+          // when we hit submit
+        }
+      });
+    }
   });
 });
 
-function getCharacterByUser(userId) {
-  $.get("/api/character/user/" + userId, function (data) {
-    if (data) {
-      // If this character exists, prefill our cms forms with its data
-      nameInput.val(data.name);
-      raceInput.val(data.race);
-      classInput.val(data.class);
-      levelInput.val(data.level);
-      bioInput.val(data.bio);
-    }
-  });
-}
 
-function getCampaignByUser(userId) {
-  $.get("/api/campaign/user/" + userId, function (data) {
-    if (data) {
-      // If this character exists, prefill our cms forms with its data
-      titleInput.val(data.title);
-      descriptionInput.val(data.description);
-      charactersInput.val(data.characters);
-      // If we have a post with this id, set a flag for us to know to update the post
-      // when we hit submit
-      updating = true;
-    }
-  });
-}
+
+
 
 
 // function renderAuthorList(rows) {

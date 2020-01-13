@@ -31,19 +31,11 @@ module.exports = function (sequelize, Sequelize) {
       unique: true
     }
   });
-
-  Character.associate = function (models) {
-    Character.belongsTo(models.Campaign, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-    Character.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
-
+  // Character.associate = function(models) {
+  //   Character.hasOne(models.Campaign, {
+  //     foreignKey: "character_id",
+  //     sourceKey: "id"
+  //   });
+  // };
   return Character;
 };
