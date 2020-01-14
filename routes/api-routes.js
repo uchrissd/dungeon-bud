@@ -77,7 +77,8 @@ module.exports = function(app) {
         userId: req.params.id
       },
       include: [
-        {model: db.User}
+        {model: db.User},
+        {model: db.Campaign}
       ]
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
@@ -131,7 +132,6 @@ module.exports = function(app) {
   //add characters to the db
   app.post("/api/character", function(req, res) {
     console.log(req.body);
-    var user = req.body.UserId
     db.Character.create({
       name: req.body.name,
       race: req.body.race,
@@ -139,13 +139,6 @@ module.exports = function(app) {
       level: req.body.level,
       bio: req.body.bio,
     }).then(function(dbCharacter) {
-      console.log(dbCharacter);
-      // db.Character.update({
-      //   UserId: user,
-      //   where: {
-      //     name: dbCharacter.name
-      //   }
-      // });
       res.json(dbCharacter);
     });
   });
