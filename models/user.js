@@ -11,7 +11,6 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         isEmail: true
       }
@@ -33,16 +32,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   User.associate = function(models) {
-    User.hasMany(models.Campaign, {
-      name: "userId",
-      type: sequelize.INTEGER,
-      onDelete: "cascade"
-    });
-    User.hasMany(models.Character, {
-      name: "userId",
-      type: sequelize.INTEGER,
-      onDelete: "cascade"
-    });
+    User.hasMany(models.Campaign);
+    User.hasMany(models.Character);
   };
 
   return User;

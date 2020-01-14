@@ -113,8 +113,8 @@ $(document).ready(function () {
         if (data) {
           // If this character exists, prefill our cms forms with its data
           nameInput.val(data.name);
-          raceInput.val(data.race);
-          classInput.val(data.class);
+          raceSelect.val(data.race);
+          classSelect.val(data.class);
           levelInput.val(data.level);
           bioInput.val(data.bio);
         }
