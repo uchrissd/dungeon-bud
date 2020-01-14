@@ -25,14 +25,11 @@ module.exports = function (sequelize, Sequelize) {
       type: Sequelize.STRING,
       allowNull: false
     }
+
   });
   Character.associate = function(models){
-    Character.belongsTo(models.User,{
-    });
-  };
-  Character.associate = function(models) {
-    Character.belongsTo(models.Campaign, {
-    });
+    Character.belongsTo(models.User);
+    Character.belongsTo(models.Campaign);
   };
   return Character;
 };

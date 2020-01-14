@@ -18,10 +18,7 @@ module.exports = function (sequelize, Sequelize) {
     }
   });
   Campaign.associate = function (models) {
-    Campaign.hasMany(models.Character, {
-      foreignKey: "campaign_id",
-      sourceKey: "id"
-    });
+    Campaign.hasMany(models.Character);
     Campaign.belongsTo(models.User);
   };
   return Campaign;
