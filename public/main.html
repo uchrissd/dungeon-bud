@@ -21,24 +21,16 @@
   </nav>
   <div class="container">
     <div class="row">
-      <div class="col s6 push-s3 signup">
+      <div class="col s6 push-s3">
         <h2>Welcome <span class="member-name"></span></h2>
       </div>
     </div>
   </div>
   <div class="container">
     <div class="row">
-      <div class="col s6 z-depth-3">
-        <h2>Characters</h2>
-        <div class="userCharacters">
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s6 z-depth-3">
-        <button data-target="modal1" class="btn modal-trigger">New Character</button>
-        <div id="modal1" class="modal">
+      <div class="col s6">
+        <button data-target="charModal" class="btn modal-trigger #b71c1c red darken-4">New Character</button>
+        <div id="charModal" class="modal">
           <div class="modal-content">
             <form class="character">
               <div class="form-group">
@@ -73,9 +65,9 @@
         </div>
       </div>
 
-      <div class="col s6 z-depth-3">
-        <button data-target="modal1" class="btn modal-trigger">New Campaign</button>
-        <div id="modal2" class="modal">
+      <div class="col s6">
+        <button data-target="campaignModal" class="btn modal-trigger #b71c1c red darken-4">New Campaign</button>
+        <div id="campaignModal" class="modal">
           <div class="modal-content">
             <form class="campaign">
               <div class="form-group">
@@ -96,6 +88,14 @@
               </div>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col s6">
+        <h2>Characters</h2>
+        <div class="userCharacters">
         </div>
       </div>
     </div>
