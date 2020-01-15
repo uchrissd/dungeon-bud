@@ -139,6 +139,7 @@ module.exports = function(app) {
       class: req.body.class,
       level: req.body.level,
       bio: req.body.bio,
+      UserId: req.body.userId
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
     });

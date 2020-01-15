@@ -19,6 +19,9 @@ $(document).ready(function() {
     // eslint-disable-next-line no-use-before-define
     getCampaignByUser(data.id);
 
+    // $('#new-character').modal().open();
+    // $('#new-campaign').modal().open();
+
     $("form.character").on("submit", function handleFormSubmit(event) {
       event.preventDefault();
       // Wont submit the character if we are missing a body or a title
