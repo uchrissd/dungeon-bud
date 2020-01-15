@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Neucha&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 </head>
 
@@ -29,7 +30,7 @@
   <div class="container">
     <div class="row">
       <div class="col s6">
-        <button data-target="charModal" class="btn modal-trigger #b71c1c red darken-4">New Character</button>
+        <button data-target="charModal" class="btn modal-trigger #b71c1c red darken-4"><i class="material-icons">person_add</i> New Character </button>
         <div id="charModal" class="modal">
           <div class="modal-content">
             <form class="character">
@@ -66,7 +67,7 @@
       </div>
 
       <div class="col s6">
-        <button data-target="campaignModal" class="btn modal-trigger #b71c1c red darken-4">New Campaign</button>
+        <button data-target="campaignModal" class="btn modal-trigger #b71c1c red darken-4"><i class="material-icons">library_add</i> New Campaign </button>
         <div id="campaignModal" class="modal">
           <div class="modal-content">
             <form class="campaign">
@@ -96,7 +97,40 @@
       <div class="col s6">
         <h2>Characters</h2>
         <div class="userCharacters">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">person</i>First</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">person</i>Second</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">person</i>Third</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+          </ul>
         </div>
+      </div>
+      <div class="col s6">
+          <h2>Campaigns</h2>
+          <div class="userCampaigns">
+            <ul class="collapsible">
+              <li>
+                <div class="collapsible-header"><i class="material-icons">library_books</i>First</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+              </li>
+              <li>
+                <div class="collapsible-header"><i class="material-icons">library_books</i>Second</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+              </li>
+              <li>
+                <div class="collapsible-header"><i class="material-icons">library_books</i>Third</div>
+                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+              </li>
+            </ul>
+          </div>
       </div>
     </div>
     <!-- Modal Trigger -->
