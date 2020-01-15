@@ -39,12 +39,13 @@ module.exports = function(sequelize, DataTypes) {
       type: sequelize.INTEGER,
       onDelete: "cascade"
     });
+  };
+  User.associate = function(models) {
     User.hasMany(models.Character, {
       name: "userId",
       type: sequelize.INTEGER,
       onDelete: "cascade"
     });
   };
-
   return User;
 };
