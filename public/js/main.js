@@ -19,8 +19,8 @@ $(document).ready(function() {
     // eslint-disable-next-line no-use-before-define
     getCampaignByUser(data.id);
 
-    // $('#new-character').modal().open();
-    // $('#new-campaign').modal().open();
+    // $("#new-character").modal().open();
+    // $("#new-campaign").modal().open();
 
     $("form.character").on("submit", function handleFormSubmit(event) {
       event.preventDefault();
@@ -106,7 +106,7 @@ $(document).ready(function() {
       }
     });
 
-    //function gets the list of characters associated to the user's unique ID
+    //function gets the list of characters associated to the user"s unique ID
 
     function getCharacterByUser(userId) {
       console.log(userId);
@@ -211,6 +211,10 @@ $(document).ready(function() {
       characterSelect.append(option);
     }
   }
+
+  $(".modal").modal();
+  $(".modal-trigger").modal();
+
   classList();
   raceList();
   characterList();
