@@ -106,6 +106,8 @@ $(document).ready(function() {
       }
     });
 
+    //function gets the list of characters associated to the user's unique ID
+
     function getCharacterByUser(userId) {
       console.log(userId);
       $.get("/api/character/user/" + userId, function(data) {
@@ -117,8 +119,15 @@ $(document).ready(function() {
           levelInput.val(data.level);
           bioInput.val(data.bio);
         }
+      }).then(function(data) {
+        var userCharacterList = [];
+        console.log(data);
+        for (i = 0; i < data.length; i++) {
+          userCharacterList.push(data[i].name);
+        }
       });
     }
+
     function getCampaignByUser(userId) {
       $.get("/api/campaign/user/" + userId, function(data) {
         if (data) {
