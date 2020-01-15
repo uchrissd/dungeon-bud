@@ -121,7 +121,7 @@ $(document).ready(function() {
         }
       }).then(function(data) {
         var userCharacterList = [];
-        console.log(data);
+        console.log(data, "this is the character data");
         for (i = 0; i < data.length; i++) {
           userCharacterList.push(data[i].name);
         }
