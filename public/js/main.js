@@ -10,8 +10,8 @@ var titleInput = $("input#campTitle");
 var descriptionInput = $("input#campDesc");
 var charactersInput = $("select.characters");
 
-$(document).ready(function () {
-  $.get("/api/user_data").then(function (data) {
+$(document).ready(function() {
+  $.get("/api/user_data").then(function(data) {
     $(".member-name").text(data.name);
     $(".member-name").attr("id", data.id);
     // eslint-disable-next-line no-use-before-define
@@ -45,10 +45,9 @@ $(document).ready(function () {
           method: "POST",
           url: "/api/character",
           data: newCharacter
-        })
-          .then(function () {
-            window.location.href = "/main";
-          });
+        }).then(function() {
+          window.location.href = "/main";
+        });
       }
 
       // Update a given post, bring user to the blog page when done
@@ -57,10 +56,9 @@ $(document).ready(function () {
           method: "PUT",
           url: "/api/character/:id",
           data: character
-        })
-          .then(function () {
-            window.location.href = "/main";
-          });
+        }).then(function() {
+          window.location.href = "/main";
+        });
       }
     });
 
@@ -88,10 +86,9 @@ $(document).ready(function () {
           method: "POST",
           url: "/api/campaigns",
           data: newCampaign
-        })
-          .then(function () {
-            window.location.href = "/main";
-          });
+        }).then(function() {
+          window.location.href = "/main";
+        });
       }
 
       // Update a given post, bring user to the blog page when done
@@ -100,16 +97,15 @@ $(document).ready(function () {
           method: "PUT",
           url: "/api/campaigns/:id",
           data: campaign
-        })
-          .then(function () {
-            window.location.href = "/main";
-          });
+        }).then(function() {
+          window.location.href = "/main";
+        });
       }
     });
 
     function getCharacterByUser(userId) {
       console.log(userId);
-      $.get("/api/character/user/" + userId, function (data) {
+      $.get("/api/character/user/" + userId, function(data) {
         if (data) {
           // If this character exists, prefill our cms forms with its data
           nameInput.val(data.name);
@@ -121,7 +117,7 @@ $(document).ready(function () {
       });
     }
     function getCampaignByUser(userId) {
-      $.get("/api/campaign/user/" + userId, function (data) {
+      $.get("/api/campaign/user/" + userId, function(data) {
         if (data) {
           // If this character exists, prefill our cms forms with its data
           titleInput.val(data.title);
@@ -136,21 +132,22 @@ $(document).ready(function () {
   function classList() {
     $.ajax({
       method: "GET",
-      url: "https://api.open5e.com/classes/",
-    })
-      .then(function (data) {
-        var classes = [];
-        console.log(data.results);
-        for (i = 0; i < data.results.length; i++) {
-          classes.push(data.results[i].name);
-        }
-        renderClassDropdown(classes);
-      });
+      url: "https://api.open5e.com/classes/"
+    }).then(function(data) {
+      var classes = [];
+      console.log(data.results);
+      for (i = 0; i < data.results.length; i++) {
+        classes.push(data.results[i].name);
+      }
+      renderClassDropdown(classes);
+    });
   }
   function renderClassDropdown(classes) {
     var classSelect = $("select.class");
     for (i = 0; i < classes.length; i++) {
-      var option = $("<option value=" + classes[i] + ">" + classes[i] + "</option>");
+      var option = $(
+        "<option value=" + classes[i] + ">" + classes[i] + "</option>"
+      );
       classSelect.append(option);
     }
   }
@@ -158,21 +155,22 @@ $(document).ready(function () {
   function raceList() {
     $.ajax({
       method: "GET",
-      url: "https://api.open5e.com/races/",
-    })
-      .then(function (data) {
-        var races = [];
-        console.log(data.results);
-        for (i = 0; i < data.results.length; i++) {
-          races.push(data.results[i].name);
-        }
-        renderRaceDropdown(races);
-      });
+      url: "https://api.open5e.com/races/"
+    }).then(function(data) {
+      var races = [];
+      console.log(data.results);
+      for (i = 0; i < data.results.length; i++) {
+        races.push(data.results[i].name);
+      }
+      renderRaceDropdown(races);
+    });
   }
   function renderRaceDropdown(races) {
     var raceSelect = $("select.race");
     for (i = 0; i < races.length; i++) {
-      var option = $("<option value=" + races[i] + ">" + races[i] + "</option>");
+      var option = $(
+        "<option value=" + races[i] + ">" + races[i] + "</option>"
+      );
       raceSelect.append(option);
     }
   }
@@ -181,7 +179,7 @@ $(document).ready(function () {
     $.ajax({
       method: "GET",
       url: "/api/character"
-    }).then(function (data) {
+    }).then(function(data) {
       console.log(data);
       var characters = [];
       console.log(data);
@@ -195,7 +193,9 @@ $(document).ready(function () {
   function renderCharacterDropdown(characters) {
     var characterSelect = $("select.characters");
     for (i = 0; i < characters.length; i++) {
-      var option = $("<option value=" + characters[i] + ">" + characters[i] + "</option>");
+      var option = $(
+        "<option value=" + characters[i] + ">" + characters[i] + "</option>"
+      );
       characterSelect.append(option);
     }
   }
@@ -203,11 +203,6 @@ $(document).ready(function () {
   raceList();
   characterList();
 });
-
-
-
-
-
 
 // function renderAuthorList(rows) {
 //   authorList.children().not(":last").remove();
