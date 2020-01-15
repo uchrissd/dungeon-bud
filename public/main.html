@@ -62,6 +62,39 @@
             </form>
           </div>
         </div>
+<!-- update character modal -->
+        <div id="charUpdateModal" class="modal">
+          <div class="modal-content">
+            <form class="character" method="POST">
+              <div class="form-group">
+                <label for="characterName" class="name">Character Name</label>
+                <input type="text" class="form-control" id="charName" placeholder="Name">
+              </div>
+              <div class="input-field col s12">
+                <p>Race</p>
+                <select class = "race">
+                  <option value="" disabled selected>Choose your option</option>
+                </select>
+              </div>
+              <div class="input-field col s12">
+                <p>Class</p>
+                <select class = "class">
+                  <option value="" disabled selected>Choose your option</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="characterLevel" class="level">Character Level</label>
+                <input type="text" class="form-control" id="charLevel" placeholder="Level">
+              </div>
+              <div class="form-group">
+                <label for="characterBio" class="bio">Character Bio</label>
+                <input type="text" class="form-control" id="charBio" placeholder="Bio">
+              </div>
+              <input id="characterUpdate" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
+            </form>
+          </div>
+        </div>
+
       </div>
 
       <div class="col s6">
@@ -93,55 +126,15 @@
       <div class="col s6">
         <h2>Characters</h2>
         <div class="userCharacters">
-          <ul class="collapsible">
-            <li>
-              <div class="collapsible-header"><i class="material-icons">person</i>First</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">person</i>Second</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">person</i>Third</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-          </ul>
         </div>
       </div>
       <div class="col s6">
           <h2>Campaigns</h2>
           <div class="userCampaigns">
-            <ul class="collapsible">
-              <li>
-                <div class="collapsible-header"><i class="material-icons">library_books</i>First</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-              <li>
-                <div class="collapsible-header"><i class="material-icons">library_books</i>Second</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-              <li>
-                <div class="collapsible-header"><i class="material-icons">library_books</i>Third</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-            </ul>
+            
           </div>
       </div>
     </div>
-    <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

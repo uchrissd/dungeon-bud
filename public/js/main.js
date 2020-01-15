@@ -1,6 +1,6 @@
 //var multiselect = require("../libraries/lou-multi-select-57fb8d3/js/jquery.multi-select");
-var characterDiv = $(".userCharacters");
-var campaignDiv = $("campaignDiv");
+var charDiv = $(".userCharacters");
+var campaignDiv = $(".userCampaigns");
 var nameInput = $("input#charName");
 var raceSelect = $("select.race");
 var classSelect = $("select.class");
@@ -10,10 +10,11 @@ var titleInput = $("input#campTitle");
 var descriptionInput = $("input#campDesc");
 var charactersInput = $("select.characters");
 
-$(document).ready(function() {
-  $.get("/api/user_data").then(function(data) {
+$(document).ready(function () {
+  $.get("/api/user_data").then(function (data) {
     $(".member-name").text(data.name);
     $(".member-name").attr("id", data.id);
+
     // eslint-disable-next-line no-use-before-define
     getCharacterByUser(data.id);
     // eslint-disable-next-line no-use-before-define
@@ -48,7 +49,7 @@ $(document).ready(function() {
           method: "POST",
           url: "/api/character",
           data: newCharacter
-        }).then(function() {
+        }).then(function () {
           window.location.href = "/main";
         });
       }
@@ -59,7 +60,7 @@ $(document).ready(function() {
           method: "PUT",
           url: "/api/character/:id",
           data: character
-        }).then(function() {
+        }).then(function () {
           window.location.href = "/main";
         });
       }
@@ -89,18 +90,18 @@ $(document).ready(function() {
           method: "POST",
           url: "/api/campaigns",
           data: newCampaign
-        }).then(function() {
+        }).then(function () {
           window.location.href = "/main";
         });
       }
 
-      // Update a given post, bring user to the blog page when done
+      // Update a given post, bring user to the main page when done
       function updateCampaign(campaign) {
         $.ajax({
           method: "PUT",
           url: "/api/campaigns/:id",
           data: campaign
-        }).then(function() {
+        }).then(function () {
           window.location.href = "/main";
         });
       }
@@ -110,26 +111,49 @@ $(document).ready(function() {
 
     function getCharacterByUser(userId) {
       console.log(userId);
-      $.get("/api/character/user/" + userId, function(data) {
+      $.get("/api/character/user/" + userId, function (data) {
         if (data) {
-          // If this character exists, prefill our cms forms with its data
-          nameInput.val(data.name);
-          raceSelect.val(data.race);
-          classSelect.val(data.class);
-          levelInput.val(data.level);
-          bioInput.val(data.bio);
+          console.log(data);
         }
-      }).then(function(data) {
+      }).then(function (data) {
         var userCharacterList = [];
-        console.log(data);
+        var charUl = $("<ul>").attr("class", "collapsible");
         for (i = 0; i < data.length; i++) {
+          var charLi = $("<li>" + data[i].name + "</li>").attr("class", "collapsible-header");
+          var charInfoDiv = $("<div>").attr("class", "collapsible-body").attr("id", data[i].id);
+          var raceSpan = $("<p>Race: " + data[i].race + "<p>");
+          var classSpan = $("<p>Class: " + data[i].class + "</p>");
+          var levelSpan = $("<p>Level: " + data[i].level + "</p>");
+          var bioSpan = $("<p>Bio: " + data[i].bio + "</p>");
+          var buttonDiv = $("<div>").attr("class", "buttonDiv");
+          var editButton = $("<button>Edit</button>").attr("class", "charEdit btn-large #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
+          var deleteButton = $("<button>Delete</button>").attr("class", "charDelete btn-large #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
+          charInfoDiv.append(raceSpan);
+          charInfoDiv.append(classSpan);
+          charInfoDiv.append(levelSpan);
+          charInfoDiv.append(bioSpan);
+          buttonDiv.append(editButton);
+          buttonDiv.append(deleteButton);
+          charInfoDiv.append(buttonDiv);
+          charLi.append(charInfoDiv);
+          charUl.append(charLi);
+          charDiv.append(charUl);
           userCharacterList.push(data[i].name);
         }
+        console.log(charUl);
+        $(".collapsible-header").click(function (event) {
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
+          $("div.collapsible-body").toggleClass("dropdown-active");
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+        });
       });
     }
 
     function getCampaignByUser(userId) {
-      $.get("/api/campaign/user/" + userId, function(data) {
+      $.get("/api/campaign/user/" + userId, function (data) {
         if (data) {
           // If this character exists, prefill our cms forms with its data
           titleInput.val(data.title);
@@ -138,14 +162,46 @@ $(document).ready(function() {
           // If we have a post with this id, set a flag for us to know to update the post
           // when we hit submit
         }
+      }).then(function(data){
+        var campUl = $("<ul>").attr("class", "collapsible");
+        for (i = 0; i < data.length; i++) {
+          var campLi = $("<li>" + data[i].title + "</li>").attr("class", "collapsible-header");
+          var campInfoDiv = $("<div>").attr("class", "collapsible-body").attr("id", data[i].id);
+          var descList = $("<p>Description: " + data[i].description + "<p>");
+          var charList = $("<p>Players: " + JSON.parse(data[i].characters) + "<p>");
+          var buttonDiv = $("<div>").attr("class", "buttonDiv");
+          var editButton = $("<button>Edit</button>").attr("class", "campEdit btn-large #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
+          var deleteButton = $("<button>Delete</button>").attr("class", "campDelete btn-large #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
+          campInfoDiv.append(descList);
+          campInfoDiv.append(charList);
+          buttonDiv.append(editButton);
+          buttonDiv.append(deleteButton);
+          campInfoDiv.append(buttonDiv);
+          campLi.append(campInfoDiv);
+          campUl.append(campLi);
+          campaignDiv.append(campUl);
+        }
+        $(".collapsible-header").click(function (event) {
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
+          $("div.collapsible-body").toggleClass("dropdown-active");
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+        });
       });
     }
+    $(".charEdit").on("submit", function (event) {
+      var charId = $this.attr("id");
+      console.log(charId);
+      getCharacterById(charId);
+    });
   });
   function classList() {
     $.ajax({
       method: "GET",
       url: "https://api.open5e.com/classes/"
-    }).then(function(data) {
+    }).then(function (data) {
       var classes = [];
       console.log(data.results);
       for (i = 0; i < data.results.length; i++) {
@@ -168,7 +224,7 @@ $(document).ready(function() {
     $.ajax({
       method: "GET",
       url: "https://api.open5e.com/races/"
-    }).then(function(data) {
+    }).then(function (data) {
       var races = [];
       console.log(data.results);
       for (i = 0; i < data.results.length; i++) {
@@ -191,7 +247,7 @@ $(document).ready(function() {
     $.ajax({
       method: "GET",
       url: "/api/character"
-    }).then(function(data) {
+    }).then(function (data) {
       console.log(data);
       var characters = [];
       console.log(data);
@@ -212,10 +268,30 @@ $(document).ready(function() {
     }
   }
 
+  function getCharacterById(charId) {
+    console.log(charId);
+    $.ajax({
+      method: "GET",
+      url: "/api/character/" + charId,
+      function(data) {
+        if (data) {
+          console.log(data);
+          nameInput.val(data.name);
+          raceSelect.val(data.race);
+          classSelect.val(data.class);
+          levelInput.val(data.level);
+          bioInput.val(data.bio);
+        }
+      }
+    })
+      .then(function (data) {
+        console.log("Character Update" + data);
+
+      });
+  }
+
   $(".modal").modal();
   $(".modal-trigger").modal();
-
-  $('.collapsible').collapsible();
 
   classList();
   raceList();
