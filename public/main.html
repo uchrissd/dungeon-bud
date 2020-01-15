@@ -33,7 +33,7 @@
         <button data-target="charModal" class="btn modal-trigger #b71c1c red darken-4"><i class="material-icons">person_add</i> New Character </button>
         <div id="charModal" class="modal">
           <div class="modal-content">
-            <form class="character">
+            <form class="character" method="POST">
               <div class="form-group">
                 <label for="characterName" class="name">Character Name</label>
                 <input type="text" class="form-control" id="charName" placeholder="Name">
@@ -58,9 +58,7 @@
                 <label for="characterBio" class="bio">Character Bio</label>
                 <input type="text" class="form-control" id="charBio" placeholder="Bio">
               </div>
-              <div class="modal-footer">
-                <a id="characterInput" type="submit" class="modal-action modal-close btn-flat">Submit</a>
-              </div>
+              <input id="characterInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
             </form>
           </div>
         </div>
@@ -70,7 +68,7 @@
         <button data-target="campaignModal" class="btn modal-trigger #b71c1c red darken-4"><i class="material-icons">library_add</i> New Campaign </button>
         <div id="campaignModal" class="modal">
           <div class="modal-content">
-            <form class="campaign">
+            <form class="campaign" method="POST">
               <div class="form-group">
                 <label for="campaignTitle" class="title">Campaign Title</label>
                 <input type="text" class="form-control" id="campTitle" placeholder="Title">
@@ -82,11 +80,9 @@
               <div class="input-field col s12">
                 <select multiple class="characters">
                 </select>
-                <label>Materialize Multiple Select</label>
+                <label></label>
               </div>
-              <div class="modal-footer">
-                <a id="campaignInput" type="submit" class="modal-action modal-close btn-flat">Submit</a>
-              </div>
+              <input id="campaignInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
             </form>
           </div>
         </div>

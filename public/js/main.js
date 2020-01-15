@@ -22,7 +22,7 @@ $(document).ready(function() {
     // $("#new-character").modal().open();
     // $("#new-campaign").modal().open();
 
-    $("form.character").on("submit", function handleFormSubmit(event) {
+    $("form.character").on("submit", function (event) {
       event.preventDefault();
       // Wont submit the character if we are missing a body or a title
       if (!nameInput.val().trim()) {
@@ -65,7 +65,7 @@ $(document).ready(function() {
       }
     });
 
-    $("form.campaign").on("submit", function handleFormSubmit(event) {
+    $("form.campaign").on("submit", function (event) {
       event.preventDefault();
       // Wont submit the character if we are missing a body or a title
       if (!titleInput.val().trim()) {
