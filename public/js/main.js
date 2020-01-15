@@ -215,6 +215,8 @@ $(document).ready(function() {
   $(".modal").modal();
   $(".modal-trigger").modal();
 
+  $('.collapsible').collapsible();
+
   classList();
   raceList();
   characterList();
