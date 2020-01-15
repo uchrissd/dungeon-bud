@@ -118,6 +118,8 @@ $(document).ready(function () {
       }).then(function (data) {
         var userCharacterList = [];
         var charUl = $("<ul>").attr("class", "collapsible");
+        console.log(data, "this is the character data");
+
         for (i = 0; i < data.length; i++) {
           var charLi = $("<li>" + data[i].name + "</li>").attr("class", "collapsible-header");
           var charInfoDiv = $("<div>").attr("class", "collapsible-body").attr("id", data[i].id);
