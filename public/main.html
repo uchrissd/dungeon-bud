@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Passport Authentication</title>
+  <title>Dungeon Bud</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Neucha&display=swap" rel="stylesheet">
@@ -31,66 +31,78 @@
       <div class="col s6 z-depth-3">
         <h2>Characters</h2>
         <div class="userCharacters">
-
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col s6 z-depth-3">
-        <h2>New Character</h2>
-        <form class="character">
-          <div class="form-group">
-            <label for="characterName" class="name">Character Name</label>
-            <input type="text" class="form-control" id="charName" placeholder="Name">
+        <button data-target="modal1" class="btn modal-trigger">New Character</button>
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <form class="character">
+              <div class="form-group">
+                <label for="characterName" class="name">Character Name</label>
+                <input type="text" class="form-control" id="charName" placeholder="Name">
+              </div>
+              <div class="input-field col s12">
+                <p>Race</p>
+                <select class = "race">
+                  <option value="" disabled selected>Choose your option</option>
+                </select>
+              </div>
+              <div class="input-field col s12">
+                <p>Class</p>
+                <select class = "class">
+                  <option value="" disabled selected>Choose your option</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="characterLevel" class="level">Character Level</label>
+                <input type="text" class="form-control" id="charLevel" placeholder="Level">
+              </div>
+              <div class="form-group">
+                <label for="characterBio" class="bio">Character Bio</label>
+                <input type="text" class="form-control" id="charBio" placeholder="Bio">
+              </div>
+              <div class="modal-footer">
+                <a id="characterInput" type="submit" class="modal-action modal-close btn-flat">Submit</a>
+              </div>
+            </form>
           </div>
-          <div class="input-field col s12">
-            <p>Race</p>
-            <select class = "race">
-              <option value="" disabled selected>Choose your option</option>
-            </select>
-          </div>
-          <div class="input-field col s12">
-            <p>Class</p>
-            <select class = "class">
-              <option value="" disabled selected>Choose your option</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="characterLevel" class="level">Character Level</label>
-            <input type="text" class="form-control" id="charLevel" placeholder="Level">
-          </div>
-          <div class="form-group">
-            <label for="characterBio" class="bio">Character Bio</label>
-            <input type="text" class="form-control" id="charBio" placeholder="Bio">
-          </div>
-          <input id="characterInput" type="submit">
-        </form>
+        </div>
       </div>
+
       <div class="col s6 z-depth-3">
-        <h2>Campaign</h2>
-        <form class="campaign">
-          <div class="form-group">
-            <label for="campaignTitle" class="title">Campaign Title</label>
-            <input type="text" class="form-control" id="campTitle" placeholder="Title">
+        <button data-target="modal1" class="btn modal-trigger">New Campaign</button>
+        <div id="modal2" class="modal">
+          <div class="modal-content">
+            <form class="campaign">
+              <div class="form-group">
+                <label for="campaignTitle" class="title">Campaign Title</label>
+                <input type="text" class="form-control" id="campTitle" placeholder="Title">
+              </div>
+              <div class="form-group">
+                <label for="campaignDescription" class="description">Campaign Description</label>
+                <input type="text" class="form-control" id="campDesc" placeholder="Description">
+              </div>
+              <div class="input-field col s12">
+                <select multiple class="characters">
+                </select>
+                <label>Materialize Multiple Select</label>
+              </div>
+              <div class="modal-footer">
+                <a id="campaignInput" type="submit" class="modal-action modal-close btn-flat">Submit</a>
+              </div>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="campaignDescription" class="description">Campaign Description</label>
-            <input type="text" class="form-control" id="campDesc" placeholder="Description">
-          </div>
-          <div class="input-field col s12">
-            <select multiple class="characters">
-              
-            </select>
-            <label>Materialize Multiple Select</label>
-          </div>
-          <input id="campaignInput" type="submit">
-        </form>
+        </div>
       </div>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/character.js"></script>
 
