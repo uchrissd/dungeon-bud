@@ -79,7 +79,6 @@ module.exports = function(app) {
       },
       include: [
         {model: db.User},
-        {model: db.Campaign}
       ]
     }).then(function(dbCharacter) {
       res.json(dbCharacter);
@@ -97,8 +96,7 @@ module.exports = function(app) {
         UserId: req.params.id
       },
       include: [
-        {model: db.User},
-        {model: db.Character}
+        {model: db.User}
       ]
     }).then(function(dbCampaign) {
       res.json(dbCampaign);
@@ -147,11 +145,12 @@ module.exports = function(app) {
 
   //add campaigns to the db
   app.post("/api/campaigns", function(req, res) {
+    console.log("***********************"+req.body.userId);
     db.Campaign.create({
       title: req.body.title,
       description: req.body.description,
       characters: req.body.characters,
-      userId: parseInt(req.body.userId)
+      UserId: parseInt(req.body.userId)
     }).then(function(dbCampaign) {
       res.json(dbCampaign);
     });
