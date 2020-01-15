@@ -27,12 +27,7 @@ module.exports = function (sequelize, Sequelize) {
     }
   });
   Character.associate = function(models){
-    Character.belongsTo(models.User,{
-    });
-  };
-  Character.associate = function(models) {
-    Character.belongsTo(models.Campaign, {
-    });
+    Character.belongsTo(models.User);
   };
   return Character;
 };
