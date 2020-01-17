@@ -29,11 +29,11 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col s6">
+      <div class="col s6 new-char">
         <button data-target="charModal" class="btn modal-trigger #b71c1c red darken-4"><i class="material-icons">person_add</i> New Character </button>
         <div id="charModal" class="modal">
           <div class="modal-content">
-            <form class="character">
+            <form class="character" method="POST">
               <div class="form-group">
                 <label for="characterName" class="name">Character Name</label>
                 <input type="text" class="form-control" id="charName" placeholder="Name">
@@ -58,19 +58,50 @@
                 <label for="characterBio" class="bio">Character Bio</label>
                 <input type="text" class="form-control" id="charBio" placeholder="Bio">
               </div>
-              <div class="modal-footer">
-                <a id="characterInput" type="submit" class="modal-action modal-close btn-flat">Submit</a>
-              </div>
+              <input id="characterInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
             </form>
           </div>
         </div>
+<!-- update character modal -->
+        <div id="charUpdateModal" class="modal">
+          <div class="modal-content">
+            <form class="character" method="POST">
+              <div class="form-group">
+                <label for="characterName" class="name">Character Name</label>
+                <input type="text" class="form-control" id="charName" placeholder="Name">
+              </div>
+              <div class="input-field col s12">
+                <p>Race</p>
+                <select class = "race">
+                  <option value="" disabled selected>Choose your option</option>
+                </select>
+              </div>
+              <div class="input-field col s12">
+                <p>Class</p>
+                <select class = "class">
+                  <option value="" disabled selected>Choose your option</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="characterLevel" class="level">Character Level</label>
+                <input type="text" class="form-control" id="charLevel" placeholder="Level">
+              </div>
+              <div class="form-group">
+                <label for="characterBio" class="bio">Character Bio</label>
+                <input type="text" class="form-control" id="charBio" placeholder="Bio">
+              </div>
+              <input id="characterUpdate" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
+            </form>
+          </div>
+        </div>
+
       </div>
 
-      <div class="col s6">
+      <div class="col s6 new-campaign">
         <button data-target="campaignModal" class="btn modal-trigger #b71c1c red darken-4"><i class="material-icons">library_add</i> New Campaign </button>
         <div id="campaignModal" class="modal">
           <div class="modal-content">
-            <form class="campaign">
+            <form class="campaign" method="POST">
               <div class="form-group">
                 <label for="campaignTitle" class="title">Campaign Title</label>
                 <input type="text" class="form-control" id="campTitle" placeholder="Title">
@@ -82,11 +113,9 @@
               <div class="input-field col s12">
                 <select multiple class="characters">
                 </select>
-                <label>Materialize Multiple Select</label>
+                <label></label>
               </div>
-              <div class="modal-footer">
-                <a id="campaignInput" type="submit" class="modal-action modal-close btn-flat">Submit</a>
-              </div>
+              <input id="campaignInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
             </form>
           </div>
         </div>
@@ -97,39 +126,12 @@
       <div class="col s6">
         <h2>Characters</h2>
         <div class="userCharacters">
-          <ul class="collapsible">
-            <li>
-              <div class="collapsible-header"><i class="material-icons">person</i>First</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">person</i>Second</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">person</i>Third</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-          </ul>
         </div>
       </div>
       <div class="col s6">
           <h2>Campaigns</h2>
           <div class="userCampaigns">
-            <ul class="collapsible">
-              <li>
-                <div class="collapsible-header"><i class="material-icons">library_books</i>First</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-              <li>
-                <div class="collapsible-header"><i class="material-icons">library_books</i>Second</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-              <li>
-                <div class="collapsible-header"><i class="material-icons">library_books</i>Third</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-              </li>
-            </ul>
+            
           </div>
       </div>
     </div>
