@@ -118,15 +118,15 @@ module.exports = function(app) {
   });
 
   //get specific campaign from db
-  // app.get("/api/campaigns", function(req, res) {
-  //   db.Character.findOne({
-  //     where: {
-  //       UserId: req.body.id
-  //     }
-  //   }).then(function(dbCharacter) {
-  //     res.json(dbCharacter);
-  //   });
-  // });
+  app.get("/api/campaigns/:id", function(req, res) {
+    db.Campaign.findOne({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbCharacter) {
+      res.json(dbCharacter);
+    });
+  });
 
   //add characters to the db
   app.post("/api/character", function(req, res) {
@@ -179,6 +179,9 @@ module.exports = function(app) {
       title: req.body.title,
       description: req.body.description,
       characters: req.body.characters
+    },
+    {
+      where: { id: req.params.id}
     }).then(function(dbCampaign) {
       res.json(dbCampaign);
     });

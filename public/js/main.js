@@ -11,6 +11,8 @@ var descriptionInput = $("input#campDesc");
 var charactersInput = $("select.characters");
 var updatingChar = false;
 var characterId;
+var updatingCamp = false;
+var campaignId;
 
 $(document).ready(function () {
   $.get("/api/user_data").then(function (data) {
@@ -63,9 +65,6 @@ $(document).ready(function () {
           window.location.href = "/main";
         });
       }
-
-      // Update a given post, bring user to the blog page when done
-
     });
 
     //create new campaign
@@ -84,8 +83,14 @@ $(document).ready(function () {
         userId: data.id
       };
 
+      if(updatingCamp){
+        updateCampaign(newCampaign, campaignId);
+        updatingCamp = false;
+      }
+      else{
+        submitCampaign(newCampaign);
+      }
       //call method to send campaign info to database
-      submitCampaign(newCampaign);
 
       // Submits a new character and brings user to main page upon completion
       function submitCampaign(newCampaign) {
@@ -100,13 +105,13 @@ $(document).ready(function () {
       }
 
       // Update a given post, bring user to the main page when done
-      function updateCampaign(campaign) {
+      function updateCampaign(campaign, campaignId) {
         $.ajax({
           method: "PUT",
-          url: "/api/campaigns/:id",
+          url: "/api/campaigns/" + campaignId,
           data: campaign
         }).then(function () {
-          window.location.href = "/main";
+          location.reload();
         });
       }
     });
@@ -225,9 +230,36 @@ $(document).ready(function () {
           event.stopImmediatePropagation();
           $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
           $("div.collapsible-body").toggleClass("dropdown-active");
-          event.stopPropagation();
-          event.stopImmediatePropagation();
         });
+        $(".campEdit").on("click", function (event) {
+          event.stopPropagation();
+          $("#campaignModal").modal('open');
+          var campId = $(this).attr("id");
+          console.log(campId);
+          getCampaignById(campId);
+        });
+
+        function getCampaignById(campId) {
+          console.log(campId);
+          console.log(updatingCamp);
+          updatingCamp = true;
+          $.ajax({
+            method: "GET",
+            url: "/api/campaigns/" + campId,
+            function(data) {
+              if (data) {
+                console.log(data.body);
+              }
+            }
+          })
+            .then(function (data) {
+              campaignId = data.id;
+              console.log("Campaign Update" + JSON.stringify(data));
+              titleInput.val(data.title);
+              descriptionInput.val(data.description);
+              charactersInput.val(data.characters);
+            });
+        }
       });
     }
 
