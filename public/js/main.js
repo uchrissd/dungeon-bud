@@ -121,6 +121,8 @@ $(document).ready(function () {
         }
       }).then(function (data) {
         var userCharacterList = [];
+        console.log(data.body, "this is the character data");
+        
         var charUl = $("<ul>").attr("class", "collapsible");
         console.log(data, "this is the character data");
         //creating html to render out each of a user's characters
@@ -282,6 +284,12 @@ $(document).ready(function () {
     }
   }
 
+  //API calls to get race and  class info for the user
+
+  // class function
+
+  // race function
+
   function characterList() {
     $.ajax({
       method: "GET",
@@ -320,6 +328,9 @@ $(document).ready(function () {
   $(".modal").modal();
   $(".modal-trigger").modal();
 
+
+  $(".collapsible").collapsible();
+  
   classList();
   raceList();
   characterList();
