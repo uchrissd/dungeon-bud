@@ -15,8 +15,26 @@ label {
 }
 
 h2 {
-  color: rgb(255, 255, 255);
+  color: whitesmoke;
   -webkit-text-stroke: 1px black;
+  text-align: center;
+  text-size-adjust: 50%;
+}
+
+.new-char {
+  text-align: center;
+}
+
+.new-campaign {
+  text-align: center;
+}
+
+.btn {
+  text-align: center;
+}
+
+.btn:active {
+  color: black;
 }
 
 .signup {
@@ -81,3 +99,19 @@ select p{
   background-position:center;
   background-size: cover;
 }
+
+.collapsible-header {
+  color: whitesmoke;
+  background-color: #424242;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+    

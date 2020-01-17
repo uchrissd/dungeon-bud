@@ -12,97 +12,147 @@
 </head>
 
 <body>
-  <nav>
-    <ul class="nav-wrapper #424242 grey darken-3">
-      <a href="#" class="brand-logo left"><img class="responsive-img" id="logo" src="images/bookicon.png" />Dungeon
-        Bud</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a class="navbar-brand" href="/logout">Logout</a></li>
-      </ul>
-  </nav>
-  <div class="container">
-    <div class="row">
-      <div class="col s6 push-s3">
-        <h2>Welcome <span class="member-name"></span></h2>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col s6">
-        <button data-target="charModal" class="btn modal-trigger #b71c1c red darken-4"><i class="material-icons">person_add</i> New Character </button>
-        <div id="charModal" class="modal">
-          <div class="modal-content">
-            <form class="character" method="POST">
-              <div class="form-group">
-                <label for="characterName" class="name">Character Name</label>
-                <input type="text" class="form-control" id="charName" placeholder="Name">
-              </div>
-              <div class="input-field col s12">
-                <p>Race</p>
-                <select class = "race">
-                  <option value="" disabled selected>Choose your option</option>
-                </select>
-              </div>
-              <div class="input-field col s12">
-                <p>Class</p>
-                <select class = "class">
-                  <option value="" disabled selected>Choose your option</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="characterLevel" class="level">Character Level</label>
-                <input type="text" class="form-control" id="charLevel" placeholder="Level">
-              </div>
-              <div class="form-group">
-                <label for="characterBio" class="bio">Character Bio</label>
-                <input type="text" class="form-control" id="charBio" placeholder="Bio">
-              </div>
-              <input id="characterInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
-            </form>
-          </div>
+  <header>
+    <nav>
+      <ul class="nav-wrapper #424242 grey darken-3">
+        <a href="#" class="brand-logo left"><img class="responsive-img" id="logo" src="images/bookicon.png" />Dungeon
+          Bud</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a class="navbar-brand" href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col s6 push-s3">
+          <h2>Welcome <span class="member-name"></span></h2>
         </div>
       </div>
+    </div>
 
-      <div class="col s6">
-        <button data-target="campaignModal" class="btn modal-trigger #b71c1c red darken-4"><i class="material-icons">library_add</i> New Campaign </button>
-        <div id="campaignModal" class="modal">
-          <div class="modal-content">
-            <form class="campaign" method="POST">
-              <div class="form-group">
-                <label for="campaignTitle" class="title">Campaign Title</label>
-                <input type="text" class="form-control" id="campTitle" placeholder="Title">
-              </div>
-              <div class="form-group">
-                <label for="campaignDescription" class="description">Campaign Description</label>
-                <input type="text" class="form-control" id="campDesc" placeholder="Description">
-              </div>
-              <div class="input-field col s12">
-                <select multiple class="characters">
-                </select>
-                <label></label>
-              </div>
-              <input id="campaignInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
-            </form>
+    <div class="container">
+      <div class="row">
+        <div class="col s6 new-char">
+          <button data-target="charModal" class="btn modal-trigger #b71c1c red darken-4 waves-effect waves-black"><i class="material-icons">person_add</i> New Character </button>
+          <div id="charModal" class="modal">
+            <div class="modal-content">
+              <form class="character" method="POST">
+                <div class="form-group">
+                  <label for="characterName" class="name">Character Name</label>
+                  <input type="text" class="form-control" id="charName" placeholder="Name">
+                </div>
+                <div class="input-field col s12">
+                  <p>Race</p>
+                  <select class = "race">
+                    <option value="" disabled selected>Choose your option</option>
+                  </select>
+                </div>
+                <div class="input-field col s12">
+                  <p>Class</p>
+                  <select class = "class">
+                    <option value="" disabled selected>Choose your option</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="characterLevel" class="level">Character Level</label>
+                  <input type="text" class="form-control" id="charLevel" placeholder="Level">
+                </div>
+                <div class="form-group">
+                  <label for="characterBio" class="bio">Character Bio</label>
+                  <input type="text" class="form-control" id="charBio" placeholder="Bio">
+                </div>
+                <input id="characterInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
+              </form>
+            </div>
           </div>
+<<<<<<< HEAD
+=======
+
+          <!-- Update character modal -->
+          <div id="charUpdateModal" class="modal">
+            <div class="modal-content">
+              <form class="character" method="POST">
+                <div class="form-group">
+                  <label for="characterName" class="name">Character Name</label>
+                  <input type="text" class="form-control" id="charName" placeholder="Name">
+                </div>
+                <div class="input-field col s12">
+                  <p>Race</p>
+                  <select class = "race">
+                    <option value="" disabled selected>Choose your option</option>
+                  </select>
+                </div>
+                <div class="input-field col s12">
+                  <p>Class</p>
+                  <select class = "class">
+                    <option value="" disabled selected>Choose your option</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="characterLevel" class="level">Character Level</label>
+                  <input type="text" class="form-control" id="charLevel" placeholder="Level">
+                </div>
+                <div class="form-group">
+                  <label for="characterBio" class="bio">Character Bio</label>
+                  <input type="text" class="form-control" id="charBio" placeholder="Bio">
+                </div>
+                <input id="characterUpdate" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s6 new-campaign">
+          <button data-target="campaignModal" class="btn modal-trigger #b71c1c red darken-4 waves-effect waves-black"><i class="material-icons">library_add</i> New Campaign </button>
+          <div id="campaignModal" class="modal">
+            <div class="modal-content">
+              <form class="campaign" method="POST">
+                <div class="form-group">
+                  <label for="campaignTitle" class="title">Campaign Title</label>
+                  <input type="text" class="form-control" id="campTitle" placeholder="Title">
+                </div>
+                <div class="form-group">
+                  <label for="campaignDescription" class="description">Campaign Description</label>
+                  <input type="text" class="form-control" id="campDesc" placeholder="Description">
+                </div>
+                <div class="input-field col s12">
+                  <select multiple class="characters">
+                  </select>
+                  <label></label>
+                </div>
+                <input id="campaignInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
+              </form>
+            </div>
+          </div>
+>>>>>>> 1f5264bbd997767dd3313344ef05ba4a12b7d979
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col s6">
+          <h2>Characters</h2>
+          <div class="userCharacters">
+          </div>
+        </div>
+        <div class="col s6">
+            <h2>Campaigns</h2>
+            <div class="userCampaigns">
+            </div>
         </div>
       </div>
     </div>
-    
-    <div class="row">
-      <div class="col s6">
-        <h2>Characters</h2>
-        <div class="userCharacters">
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 center-align">
         </div>
       </div>
-      <div class="col s6">
-          <h2>Campaigns</h2>
-          <div class="userCampaigns">
-            
-          </div>
-      </div>
     </div>
-  </div>
+  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
