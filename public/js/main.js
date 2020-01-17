@@ -9,6 +9,8 @@ var bioInput = $("input#charBio");
 var titleInput = $("input#campTitle");
 var descriptionInput = $("input#campDesc");
 var charactersInput = $("select.characters");
+var updatingChar = false;
+var characterId;
 
 $(document).ready(function () {
   $.get("/api/user_data").then(function (data) {
@@ -23,6 +25,7 @@ $(document).ready(function () {
     // $("#new-character").modal().open();
     // $("#new-campaign").modal().open();
 
+    //Create new character
     $("form.character").on("submit", function (event) {
       event.preventDefault();
       // Wont submit the character if we are missing a body or a title
@@ -39,8 +42,15 @@ $(document).ready(function () {
         bio: bioInput.val().trim(),
         userId: data.id
       };
-
-      submitCharacter(newCharacter);
+      console.log(updatingChar);
+      if(updatingChar){
+        updateCharacter(newCharacter, characterId);
+        updatingChar = false;
+      }
+      else{
+        submitCharacter(newCharacter);
+      }
+      //call method to send character info to database
 
       // Submits a new character and brings user to main page upon completion
       function submitCharacter(newCharacter) {
@@ -55,17 +65,10 @@ $(document).ready(function () {
       }
 
       // Update a given post, bring user to the blog page when done
-      function updateCharacter(character) {
-        $.ajax({
-          method: "PUT",
-          url: "/api/character/:id",
-          data: character
-        }).then(function () {
-          window.location.href = "/main";
-        });
-      }
+
     });
 
+    //create new campaign
     $("form.campaign").on("submit", function (event) {
       event.preventDefault();
       // Wont submit the character if we are missing a body or a title
@@ -81,6 +84,7 @@ $(document).ready(function () {
         userId: data.id
       };
 
+      //call method to send campaign info to database
       submitCampaign(newCampaign);
 
       // Submits a new character and brings user to main page upon completion
@@ -119,7 +123,7 @@ $(document).ready(function () {
         var userCharacterList = [];
         var charUl = $("<ul>").attr("class", "collapsible");
         console.log(data, "this is the character data");
-
+        //creating html to render out each of a user's characters
         for (i = 0; i < data.length; i++) {
           var charLi = $("<li>" + data[i].name + "</li>").attr("class", "collapsible-header");
           var charInfoDiv = $("<div>").attr("class", "collapsible-body").attr("id", data[i].id);
@@ -128,7 +132,7 @@ $(document).ready(function () {
           var levelSpan = $("<p>Level: " + data[i].level + "</p>");
           var bioSpan = $("<p>Bio: " + data[i].bio + "</p>");
           var buttonDiv = $("<div>").attr("class", "buttonDiv");
-          var editButton = $("<button>Edit</button>").attr("class", "charEdit btn-large #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
+          var editButton = $("<button>Edit</button>").attr("href", "#charUpdateModal").attr("class", "charEdit btn-large modal-trigger #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
           var deleteButton = $("<button>Delete</button>").attr("class", "charDelete btn-large #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
           charInfoDiv.append(raceSpan);
           charInfoDiv.append(classSpan);
@@ -143,16 +147,49 @@ $(document).ready(function () {
           userCharacterList.push(data[i].name);
         }
         console.log(charUl);
+        //This is for making the character card collapsible
         $(".collapsible-header").click(function (event) {
           event.stopPropagation();
           event.stopImmediatePropagation();
           $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
           $("div.collapsible-body").toggleClass("dropdown-active");
-          event.stopPropagation();
-          event.stopImmediatePropagation();
         });
+
+        $(".charEdit").on("click", function (event) {
+          event.stopPropagation();
+          $("#charModal").modal('open');
+          var charId = $(this).attr("id");
+          console.log(charId);
+          getCharacterById(charId);
+        });
+
+        function getCharacterById(charId) {
+          console.log(charId);
+          console.log(updatingChar);
+          updatingChar = true;
+          $.ajax({
+            method: "GET",
+            url: "/api/character/" + charId,
+            function(data) {
+              if (data) {
+                console.log(data.body);
+              }
+            }
+          })
+            .then(function (data) {
+              characterId = data.id;
+              console.log("Character Update" + data.id);
+              nameInput.val(data.name);
+              raceSelect.val(data.race);
+              classSelect.val(data.class);
+              levelInput.val(data.level);
+              bioInput.val(data.bio);
+            });
+        }
       });
     }
+
+
 
     function getCampaignByUser(userId) {
       $.get("/api/campaign/user/" + userId, function (data) {
@@ -164,7 +201,7 @@ $(document).ready(function () {
           // If we have a post with this id, set a flag for us to know to update the post
           // when we hit submit
         }
-      }).then(function(data){
+      }).then(function (data) {
         var campUl = $("<ul>").attr("class", "collapsible");
         for (i = 0; i < data.length; i++) {
           var campLi = $("<li>" + data[i].title + "</li>").attr("class", "collapsible-header");
@@ -193,12 +230,10 @@ $(document).ready(function () {
         });
       });
     }
-    $(".charEdit").on("submit", function (event) {
-      var charId = $this.attr("id");
-      console.log(charId);
-      getCharacterById(charId);
-    });
+
+
   });
+
   function classList() {
     $.ajax({
       method: "GET",
@@ -212,6 +247,7 @@ $(document).ready(function () {
       renderClassDropdown(classes);
     });
   }
+
   function renderClassDropdown(classes) {
     var classSelect = $("select.class");
     for (i = 0; i < classes.length; i++) {
@@ -235,6 +271,7 @@ $(document).ready(function () {
       renderRaceDropdown(races);
     });
   }
+
   function renderRaceDropdown(races) {
     var raceSelect = $("select.race");
     for (i = 0; i < races.length; i++) {
@@ -269,27 +306,15 @@ $(document).ready(function () {
       characterSelect.append(option);
     }
   }
-
-  function getCharacterById(charId) {
-    console.log(charId);
+  function updateCharacter(character, charId) {
+    console.log(character);
     $.ajax({
-      method: "GET",
-      url: "/api/character/" + charId,
-      function(data) {
-        if (data) {
-          console.log(data);
-          nameInput.val(data.name);
-          raceSelect.val(data.race);
-          classSelect.val(data.class);
-          levelInput.val(data.level);
-          bioInput.val(data.bio);
-        }
-      }
-    })
-      .then(function (data) {
-        console.log("Character Update" + data);
-
-      });
+      method: "PUT",
+      url: "/api/character/" +charId,
+      data: character
+    }).then(function () {
+      location.reload();
+    });
   }
 
   $(".modal").modal();
