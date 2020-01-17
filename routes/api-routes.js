@@ -158,16 +158,20 @@ module.exports = function(app) {
 
   //update character in the db
   app.put("/api/character/:id", function(req, res) {
+    console.log(req.body);
     db.Character.update({
       name: req.body.name,
       race: req.body.race,
       class: req.body.class,
       level: req.body.level,
-      bio: req.body.bio,
-      userId: req.body.userId
-    }).then(function(dbCharacter) {
-      res.json(dbCharacter);
-    });
+      bio: req.body.bio
+    },
+    {
+      where: { id: req.params.id}
+    })
+      .then(function(dbCharacter) {
+        res.json(dbCharacter);
+      });
   });
 
   app.put("/api/campaigns/:id", function(req, res) {
