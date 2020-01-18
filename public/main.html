@@ -26,7 +26,7 @@
   <main>
     <div class="container">
       <div class="row">
-        <div class="col s6 push-s3">
+        <div class="col m6 push-m3 s12">
           <h2>Welcome <span class="member-name"></span></h2>
         </div>
       </div>
@@ -34,7 +34,7 @@
 
     <div class="container">
       <div class="row">
-        <div class="col s6 new-char">
+        <div class="col m6 s12 new-char">
           <button data-target="charModal" class="btn modal-trigger #b71c1c red darken-4 waves-effect waves-black"><i class="material-icons">person_add</i> New Character </button>
           <div id="charModal" class="modal">
             <div class="modal-content">
@@ -46,13 +46,13 @@
                 <div class="input-field col s12">
                   <p>Race</p>
                   <select class = "race">
-                    <option value="" disabled selected>Choose your option</option>
+                    <option value="" disabled selected>Choose Your Race</option>
                   </select>
                 </div>
                 <div class="input-field col s12">
                   <p>Class</p>
                   <select class = "class">
-                    <option value="" disabled selected>Choose your option</option>
+                    <option value="" disabled selected>Choose Your Class</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -69,7 +69,7 @@
           </div>
         </div>
 
-        <div class="col s6 new-campaign">
+        <div class="col m6 s12 new-campaign">
           <button data-target="campaignModal" class="btn modal-trigger #b71c1c red darken-4 waves-effect waves-black"><i class="material-icons">library_add</i> New Campaign </button>
           <div id="campaignModal" class="modal">
             <div class="modal-content">
@@ -82,6 +82,12 @@
                   <label for="campaignDescription" class="description">Campaign Description</label>
                   <input type="text" class="form-control" id="campDesc" placeholder="Description">
                 </div>
+                <select class = "status">
+                  <option value="" disabled selected>Choose A Status</option>
+                  <option value="Not Played">Not Played</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Played">Played</option>
+                </select>
                 <div class="input-field col s12">
                   <select multiple class="characters">
                   </select>
@@ -95,12 +101,12 @@
       </div>
       
       <div class="row">
-        <div class="col s6">
+        <div class="col m6 s12">
           <h2>Characters</h2>
           <div class="userCharacters">
           </div>
         </div>
-        <div class="col s6">
+        <div class="col m6 s12">
             <h2>Campaigns</h2>
             <div class="userCampaigns">
             </div>
