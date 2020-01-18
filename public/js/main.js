@@ -7,6 +7,7 @@ var classSelect = $("select.class");
 var levelInput = $("input#charLevel");
 var bioInput = $("input#charBio");
 var titleInput = $("input#campTitle");
+var statusSelect = $("select.status");
 var descriptionInput = $("input#campDesc");
 var charactersInput = $("select.characters");
 var updatingChar = false;
@@ -47,11 +48,11 @@ $(document).ready(function () {
       console.log(updatingChar);
 
       //determine if we're updating the character or adding a new one
-      if(updatingChar){
+      if (updatingChar) {
         updateCharacter(newCharacter, characterId);
         updatingChar = false;
       }
-      else{
+      else {
         submitCharacter(newCharacter);
       }
       //call method to send character info to database
@@ -81,15 +82,16 @@ $(document).ready(function () {
       var newCampaign = {
         title: titleInput.val().trim(),
         description: descriptionInput.val().trim(),
+        status: statusSelect.val().trim(),
         characters: JSON.stringify(charactersInput.val()),
         userId: data.id
       };
 
-      if(updatingCamp){
+      if (updatingCamp) {
         updateCampaign(newCampaign, campaignId);
         updatingCamp = false;
       }
-      else{
+      else {
         submitCampaign(newCampaign);
       }
       //call method to send campaign info to database
@@ -163,13 +165,13 @@ $(document).ready(function () {
           event.stopPropagation();
           event.stopImmediatePropagation();
           $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
-          $("div.collapsible-body").toggleClass("dropdown-active");
+            $("div.collapsible-body").toggleClass("dropdown-active");
         });
 
         //click event to edit the character
         $(".charEdit").on("click", function (event) {
           event.stopPropagation();
-          $("#charModal").modal('open');
+          $("#charModal").modal("open");
           var charId = $(this).attr("id");
           console.log(charId);
           getCharacterById(charId);
@@ -196,7 +198,7 @@ $(document).ready(function () {
               }
             }
           })
-          //fill the edit form with the character data that has been retrieved
+            //fill the edit form with the character data that has been retrieved
             .then(function (data) {
               characterId = data.id;
               console.log("Character Update" + data.id);
@@ -223,14 +225,17 @@ $(document).ready(function () {
         //creating and rendering the html with campaign data
         var campUl = $("<ul>").attr("class", "collapsible");
         for (i = 0; i < data.length; i++) {
+          var characterString = JSON.parse(data[i].characters).join(", ");
           var campLi = $("<li>" + data[i].title + "</li>").attr("class", "collapsible-header");
           var campInfoDiv = $("<div>").attr("class", "collapsible-body").attr("id", data[i].id);
           var descList = $("<p>Description: " + data[i].description + "<p>");
-          var charList = $("<p>Players: " + JSON.parse(data[i].characters) + "<p>");
+          var statusText = $("<p>Status: " + data[i].status + "<p>");
+          var charList = $("<p>Players: " + characterString + "<p>");
           var buttonDiv = $("<div>").attr("class", "buttonDiv");
           var editButton = $("<button>Edit</button>").attr("class", "campEdit btn-large #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
           var deleteButton = $("<button>Delete</button>").attr("class", "campDelete btn-large #b71c1c red darken-4").attr("id", data[i].id).attr("css", "z-index: 1;");
           campInfoDiv.append(descList);
+          campInfoDiv.append(statusText);
           campInfoDiv.append(charList);
           buttonDiv.append(editButton);
           buttonDiv.append(deleteButton);
@@ -239,11 +244,19 @@ $(document).ready(function () {
           campUl.append(campLi);
           campaignDiv.append(campUl);
         }
+        function closeCollapsible() {
+          console.log($("div.collapsible-header"));
+          $("div.collapsible-header").each(function () {
+            $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
+            $("div.collapsible-body").toggleClass("dropdown-active");
+          });
+        }
 
         //click event to pop open campaign collapsible
         $(".collapsible-header").click(function (event) {
           event.stopPropagation();
           event.stopImmediatePropagation();
+          closeCollapsible();
           $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
           $("div.collapsible-body").toggleClass("dropdown-active");
         });
@@ -251,7 +264,7 @@ $(document).ready(function () {
         //click event to edit a campaign
         $(".campEdit").on("click", function (event) {
           event.stopPropagation();
-          $("#campaignModal").modal('open');
+          $("#campaignModal").modal("open");
           var campId = $(this).attr("id");
           console.log(campId);
           getCampaignById(campId);
@@ -278,13 +291,14 @@ $(document).ready(function () {
               }
             }
           })
-          //populate our edit form with the data retrieved
+            //populate our edit form with the data retrieved
             .then(function (data) {
               campaignId = data.id;
               console.log("Campaign Update" + JSON.stringify(data));
               titleInput.val(data.title);
               descriptionInput.val(data.description);
-              charactersInput.val(data.characters);
+              statusSelect.val(data.status);
+              charactersInput.val(JSON.parse(data.characters));
             });
         }
       });
@@ -381,7 +395,7 @@ $(document).ready(function () {
     console.log(character);
     $.ajax({
       method: "PUT",
-      url: "/api/character/" +charId,
+      url: "/api/character/" + charId,
       data: character
     }).then(function () {
       location.reload();
@@ -392,7 +406,7 @@ $(document).ready(function () {
     console.log(charId);
     $.ajax({
       method: "DELETE",
-      url: "/api/character/" +charId
+      url: "/api/character/" + charId
     }).then(function () {
       location.reload();
     });
@@ -402,7 +416,7 @@ $(document).ready(function () {
     console.log(charId);
     $.ajax({
       method: "DELETE",
-      url: "/api/campaigns/" +charId
+      url: "/api/campaigns/" + charId
     }).then(function () {
       location.reload();
     });
@@ -411,7 +425,7 @@ $(document).ready(function () {
   //generic triggers for modals and collapsibles
   $(".modal").modal();
   $(".modal-trigger").modal();
-  $(".collapsible").collapsible();
+  $(".collapsible").collapsible({ accordion: true });
 
   classList();
   raceList();

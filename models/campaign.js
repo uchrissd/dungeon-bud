@@ -12,6 +12,10 @@ module.exports = function (sequelize, Sequelize) {
       allowNull: false,
       unique: true
     },
+    status: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
     characters: {
       type: Sequelize.STRING,
       allowNull: true

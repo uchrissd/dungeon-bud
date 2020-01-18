@@ -91,7 +91,9 @@ select{
 select p{
   color: white;
 }
-
+.characters{
+  height: 150px;
+}
 .modal-content {
   background: url(../images/old-yellow-and-brown-parchment-paper-900x1204.jpg);
   background-repeat:no-repeat;

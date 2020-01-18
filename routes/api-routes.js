@@ -149,6 +149,7 @@ module.exports = function(app) {
     db.Campaign.create({
       title: req.body.title,
       description: req.body.description,
+      status: req.body.status,
       characters: req.body.characters,
       UserId: parseInt(req.body.userId)
     }).then(function(dbCampaign) {
@@ -178,6 +179,7 @@ module.exports = function(app) {
     db.Campaign.update({
       title: req.body.title,
       description: req.body.description,
+      status: req.body.status,
       characters: req.body.characters
     },
     {
