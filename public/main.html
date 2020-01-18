@@ -40,27 +40,27 @@
             <div class="modal-content">
               <form class="character" method="POST">
                 <div class="form-group">
-                  <label for="characterName" class="name">Character Name</label>
+                  <label for="characterName" class="name"><h5>Character Name</h5></label>
                   <input type="text" class="form-control" id="charName" placeholder="Name">
                 </div>
                 <div class="input-field col s12">
-                  <p>Race</p>
+                  <h5>Race</h5>
                   <select class = "race">
                     <option value="" disabled selected>Choose Your Race</option>
                   </select>
                 </div>
                 <div class="input-field col s12">
-                  <p>Class</p>
+                  <h5>Class</h5>
                   <select class = "class">
                     <option value="" disabled selected>Choose Your Class</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="characterLevel" class="level">Character Level</label>
+                  <label for="characterLevel" class="level"><h5>Character Level</h5></label>
                   <input type="text" class="form-control" id="charLevel" placeholder="Level">
                 </div>
                 <div class="form-group">
-                  <label for="characterBio" class="bio">Character Bio</label>
+                  <label for="characterBio" class="bio"><h5>Character Bio</h5></label>
                   <input type="text" class="form-control" id="charBio" placeholder="Bio">
                 </div>
                 <input id="characterInput" type="submit" class="#b71c1c red darken-4" style="width: 50%; height: 50px;">
@@ -75,19 +75,21 @@
             <div class="modal-content">
               <form class="campaign" method="POST">
                 <div class="form-group">
-                  <label for="campaignTitle" class="title">Campaign Title</label>
+                  <label for="campaignTitle" class="title"><h5>Campaign Title</h5></label>
                   <input type="text" class="form-control" id="campTitle" placeholder="Title">
                 </div>
                 <div class="form-group">
-                  <label for="campaignDescription" class="description">Campaign Description</label>
+                  <label for="campaignDescription" class="description"><h5>Campaign Description</h5></label>
                   <input type="text" class="form-control" id="campDesc" placeholder="Description">
                 </div>
+                <h5>Status</h5>
                 <select class = "status">
                   <option value="" disabled selected>Choose A Status</option>
                   <option value="Not Played">Not Played</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Played">Played</option>
                 </select>
+                <h5>Players</h5>
                 <div class="input-field col s12">
                   <select multiple class="characters">
                   </select>
