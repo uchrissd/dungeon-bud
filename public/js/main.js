@@ -11,6 +11,8 @@ var descriptionInput = $("input#campDesc");
 var charactersInput = $("select.characters");
 var updatingChar = false;
 var characterId;
+var updatingCamp = false;
+var campaignId;
 
 $(document).ready(function () {
   $.get("/api/user_data").then(function (data) {
@@ -43,6 +45,8 @@ $(document).ready(function () {
         userId: data.id
       };
       console.log(updatingChar);
+
+      //determine if we're updating the character or adding a new one
       if(updatingChar){
         updateCharacter(newCharacter, characterId);
         updatingChar = false;
@@ -63,9 +67,6 @@ $(document).ready(function () {
           window.location.href = "/main";
         });
       }
-
-      // Update a given post, bring user to the blog page when done
-
     });
 
     //create new campaign
@@ -84,8 +85,14 @@ $(document).ready(function () {
         userId: data.id
       };
 
+      if(updatingCamp){
+        updateCampaign(newCampaign, campaignId);
+        updatingCamp = false;
+      }
+      else{
+        submitCampaign(newCampaign);
+      }
       //call method to send campaign info to database
-      submitCampaign(newCampaign);
 
       // Submits a new character and brings user to main page upon completion
       function submitCampaign(newCampaign) {
@@ -99,14 +106,14 @@ $(document).ready(function () {
         });
       }
 
-      // Update a given post, bring user to the main page when done
-      function updateCampaign(campaign) {
+      // Update a campaign, bring user to the main page when done
+      function updateCampaign(campaign, campaignId) {
         $.ajax({
           method: "PUT",
-          url: "/api/campaigns/:id",
+          url: "/api/campaigns/" + campaignId,
           data: campaign
         }).then(function () {
-          window.location.href = "/main";
+          location.reload();
         });
       }
     });
@@ -115,6 +122,7 @@ $(document).ready(function () {
 
     function getCharacterByUser(userId) {
       console.log(userId);
+      //gets a user's characters
       $.get("/api/character/user/" + userId, function (data) {
         if (data) {
           console.log(data);
@@ -122,7 +130,7 @@ $(document).ready(function () {
       }).then(function (data) {
         var userCharacterList = [];
         console.log(data.body, "this is the character data");
-        
+
         var charUl = $("<ul>").attr("class", "collapsible");
         console.log(data, "this is the character data");
         //creating html to render out each of a user's characters
@@ -149,6 +157,7 @@ $(document).ready(function () {
           userCharacterList.push(data[i].name);
         }
         console.log(charUl);
+
         //This is for making the character card collapsible
         $(".collapsible-header").click(function (event) {
           event.stopPropagation();
@@ -157,6 +166,7 @@ $(document).ready(function () {
           $("div.collapsible-body").toggleClass("dropdown-active");
         });
 
+        //click event to edit the character
         $(".charEdit").on("click", function (event) {
           event.stopPropagation();
           $("#charModal").modal('open');
@@ -165,6 +175,14 @@ $(document).ready(function () {
           getCharacterById(charId);
         });
 
+        $(".charDelete").on("click", function (event) {
+          event.stopPropagation();
+          var charId = $(this).attr("id");
+          console.log(charId);
+          deleteCharacter(charId);
+        });
+
+        //method to get the character data we want to edit
         function getCharacterById(charId) {
           console.log(charId);
           console.log(updatingChar);
@@ -178,6 +196,7 @@ $(document).ready(function () {
               }
             }
           })
+          //fill the edit form with the character data that has been retrieved
             .then(function (data) {
               characterId = data.id;
               console.log("Character Update" + data.id);
@@ -191,8 +210,7 @@ $(document).ready(function () {
       });
     }
 
-
-
+    //retrieve a user's campaigns
     function getCampaignByUser(userId) {
       $.get("/api/campaign/user/" + userId, function (data) {
         if (data) {
@@ -200,10 +218,9 @@ $(document).ready(function () {
           titleInput.val(data.title);
           descriptionInput.val(data.description);
           charactersInput.val(data.characters);
-          // If we have a post with this id, set a flag for us to know to update the post
-          // when we hit submit
         }
       }).then(function (data) {
+        //creating and rendering the html with campaign data
         var campUl = $("<ul>").attr("class", "collapsible");
         for (i = 0; i < data.length; i++) {
           var campLi = $("<li>" + data[i].title + "</li>").attr("class", "collapsible-header");
@@ -222,20 +239,59 @@ $(document).ready(function () {
           campUl.append(campLi);
           campaignDiv.append(campUl);
         }
+
+        //click event to pop open campaign collapsible
         $(".collapsible-header").click(function (event) {
           event.stopPropagation();
           event.stopImmediatePropagation();
           $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
           $("div.collapsible-body").toggleClass("dropdown-active");
-          event.stopPropagation();
-          event.stopImmediatePropagation();
         });
+
+        //click event to edit a campaign
+        $(".campEdit").on("click", function (event) {
+          event.stopPropagation();
+          $("#campaignModal").modal('open');
+          var campId = $(this).attr("id");
+          console.log(campId);
+          getCampaignById(campId);
+        });
+
+        $(".campDelete").on("click", function (event) {
+          event.stopPropagation();
+          var charId = $(this).attr("id");
+          console.log(charId);
+          deleteCampaign(charId);
+        });
+
+        //method to get the campaign info we want to edit
+        function getCampaignById(campId) {
+          console.log(campId);
+          console.log(updatingCamp);
+          updatingCamp = true;
+          $.ajax({
+            method: "GET",
+            url: "/api/campaigns/" + campId,
+            function(data) {
+              if (data) {
+                console.log(data.body);
+              }
+            }
+          })
+          //populate our edit form with the data retrieved
+            .then(function (data) {
+              campaignId = data.id;
+              console.log("Campaign Update" + JSON.stringify(data));
+              titleInput.val(data.title);
+              descriptionInput.val(data.description);
+              charactersInput.val(data.characters);
+            });
+        }
       });
     }
-
-
   });
 
+  //retrieve a list of character classes from the open5e api
   function classList() {
     $.ajax({
       method: "GET",
@@ -250,6 +306,7 @@ $(document).ready(function () {
     });
   }
 
+  //create html dropdown and fill it with the classes retrieved from the api
   function renderClassDropdown(classes) {
     var classSelect = $("select.class");
     for (i = 0; i < classes.length; i++) {
@@ -260,6 +317,7 @@ $(document).ready(function () {
     }
   }
 
+  //retrieve a list of character races from the open5e api
   function raceList() {
     $.ajax({
       method: "GET",
@@ -274,6 +332,7 @@ $(document).ready(function () {
     });
   }
 
+  //create html dropdown and fill it with the races retrieved from the api
   function renderRaceDropdown(races) {
     var raceSelect = $("select.race");
     for (i = 0; i < races.length; i++) {
@@ -290,6 +349,7 @@ $(document).ready(function () {
 
   // race function
 
+  //get a list of all players' characters from the database
   function characterList() {
     $.ajax({
       method: "GET",
@@ -305,6 +365,7 @@ $(document).ready(function () {
     });
   }
 
+  //create html for a multiselect list of all characters
   function renderCharacterDropdown(characters) {
     var characterSelect = $("select.characters");
     for (i = 0; i < characters.length; i++) {
@@ -314,6 +375,8 @@ $(document).ready(function () {
       characterSelect.append(option);
     }
   }
+
+  //function to update character information
   function updateCharacter(character, charId) {
     console.log(character);
     $.ajax({
@@ -325,12 +388,31 @@ $(document).ready(function () {
     });
   }
 
+  function deleteCharacter(charId) {
+    console.log(charId);
+    $.ajax({
+      method: "DELETE",
+      url: "/api/character/" +charId
+    }).then(function () {
+      location.reload();
+    });
+  }
+
+  function deleteCampaign(charId) {
+    console.log(charId);
+    $.ajax({
+      method: "DELETE",
+      url: "/api/campaigns/" +charId
+    }).then(function () {
+      location.reload();
+    });
+  }
+
+  //generic triggers for modals and collapsibles
   $(".modal").modal();
   $(".modal-trigger").modal();
-
-
   $(".collapsible").collapsible();
-  
+
   classList();
   raceList();
   characterList();
