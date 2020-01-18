@@ -198,7 +198,7 @@ module.exports = function(app) {
   });
 
   app.delete("/api/character/:id", function(req, res) {
-    db.Characters.destroy({
+    db.Character.destroy({
       where: {
         id: req.params.id
       }
