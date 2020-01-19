@@ -107,10 +107,28 @@ select p{
   background-color: #424242;
 }
 
+.race{
+  float: right;
+}
+
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+}
+
+.raceSelected{
+  width: 100%;
+  margin: 10px;
+  color: white;
+  background-color: rgb(99, 21, 21)
+}
+
+.classSelected{
+  width: 100%;
+  margin: 10px;
+  color: white;
+  background-color: rgb(99, 21, 21)
 }
 
 main {
