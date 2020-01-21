@@ -1,12 +1,18 @@
-h1, h2, h3, h4, h5, p, a {
-  font-family: 'Neucha', cursive;
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+a {
+  font-family: "Neucha", cursive;
 }
 
 body {
   background: url(../images/tavernimage.jpg);
-  background-repeat:no-repeat;
-  background-attachment:fixed;
-  background-position:center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
   background-size: cover;
 }
 
@@ -31,6 +37,7 @@ h2 {
 
 .btn {
   text-align: center;
+  margin: 20px;
 }
 
 .btn:active {
@@ -43,22 +50,26 @@ h2 {
   border-width: 1.5px;
   border-radius: 4px;
   background: url(../images/old-yellow-and-brown-parchment-paper-900x1204.jpg);
-  background-repeat:no-repeat;
-  background-attachment:fixed;
-  background-position:center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
   background-size: cover;
   color: #424242;
 }
 
 .signup h2 {
-  color: black
+  color: black;
 }
 
-.form-group input[type=text]:focus, input[type=email]:focus, input[type=password]:focus + label {
+.form-group input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus + label {
   color: rgb(99, 21, 21) !important;
 }
 
-.form-group input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+.form-group input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
   border-bottom: 1px solid rgb(99, 21, 21) !important;
   box-shadow: 0 1px 0 0 rgb(99, 21, 21) !important;
 }
@@ -76,7 +87,7 @@ h2 {
 #logo {
   margin-top: 5px;
   margin-bottom: -12px;
-  height:50px;
+  height: 50px;
   width: 50px;
 }
 
@@ -85,20 +96,20 @@ form.login {
   margin-top: 50px;
 }
 
-select{
+select {
   display: inline-block;
 }
-select p{
+select p {
   color: white;
 }
-.characters{
+.characters {
   height: 150px;
 }
 .modal-content {
   background: url(../images/old-yellow-and-brown-parchment-paper-900x1204.jpg);
-  background-repeat:no-repeat;
-  background-attachment:fixed;
-  background-position:center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
   background-size: cover;
 }
 
@@ -107,13 +118,30 @@ select p{
   background-color: #424242;
 }
 
+.race{
+  float: right;
+}
+
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
 
+.raceSelected{
+  width: 100%;
+  margin: 10px;
+  color: white;
+  background-color: rgb(99, 21, 21)
+}
+
+.classSelected{
+  width: 100%;
+  margin: 10px;
+  color: white;
+  background-color: rgb(99, 21, 21)
+}
+
 main {
   flex: 1 0 auto;
 }
-    

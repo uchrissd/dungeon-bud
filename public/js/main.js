@@ -2,8 +2,8 @@
 var charDiv = $(".userCharacters");
 var campaignDiv = $(".userCampaigns");
 var nameInput = $("input#charName");
-var raceSelect = $("select.race");
-var classSelect = $("select.class");
+var raceInput = $("input#charRace");
+var classInput = $("input#charClass");
 var levelInput = $("input#charLevel");
 var bioInput = $("input#charBio");
 var titleInput = $("input#campTitle");
@@ -30,17 +30,18 @@ $(document).ready(function () {
 
     //Create new character
     $("form.character").on("submit", function (event) {
+      event.stopPropagation();
       event.preventDefault();
       // Wont submit the character if we are missing a body or a title
-      if (!nameInput.val().trim()) {
+      if (!nameInput.val().trim() || !raceInput.val().trim() || !classInput.val().trim() || !levelInput.val().trim() || !bioInput.val().trim()) {
         return;
       }
       console.log(data.id);
       // Constructing a newPost object to hand to the database
       var newCharacter = {
         name: nameInput.val().trim(),
-        race: raceSelect.val().trim(),
-        class: classSelect.val().trim(),
+        race: raceInput.val().trim(),
+        class: classInput.val().trim(),
         level: levelInput.val().trim(),
         bio: bioInput.val().trim(),
         userId: data.id
@@ -72,6 +73,7 @@ $(document).ready(function () {
 
     //create new campaign
     $("form.campaign").on("submit", function (event) {
+      event.stopPropagation();
       event.preventDefault();
       // Wont submit the character if we are missing a body or a title
       if (!titleInput.val().trim()) {
@@ -203,8 +205,8 @@ $(document).ready(function () {
               characterId = data.id;
               console.log("Character Update" + data.id);
               nameInput.val(data.name);
-              raceSelect.val(data.race);
-              classSelect.val(data.class);
+              raceInput.val(data.race);
+              classInput.val(data.class);
               levelInput.val(data.level);
               bioInput.val(data.bio);
             });
@@ -245,7 +247,6 @@ $(document).ready(function () {
           campaignDiv.append(campUl);
         }
         function closeCollapsible() {
-          console.log($("div.collapsible-header"));
           $("div.collapsible-header").each(function () {
             $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
             $("div.collapsible-body").toggleClass("dropdown-active");
@@ -254,9 +255,9 @@ $(document).ready(function () {
 
         //click event to pop open campaign collapsible
         $(".collapsible-header").click(function (event) {
+          closeCollapsible();
           event.stopPropagation();
           event.stopImmediatePropagation();
-          closeCollapsible();
           $(this).children("div.collapsible-body").stop(true, true).slideToggle("fast"),
           $("div.collapsible-body").toggleClass("dropdown-active");
         });
@@ -322,15 +323,49 @@ $(document).ready(function () {
 
   //create html dropdown and fill it with the classes retrieved from the api
   function renderClassDropdown(classes) {
-    var classSelect = $("select.class");
+    var classSelect = $(".class-select");
+    var classDivRow = $("<div>").attr("class", "row");
     for (i = 0; i < classes.length; i++) {
-      var option = $(
-        "<option value=" + classes[i] + ">" + classes[i] + "</option>"
-      );
-      classSelect.append(option);
+      var classDivCol = $("<div>").attr("class", "col s4");
+      var classButton = $("<button>" + classes[i] + "</button>").attr("class", "classSelected btn-large #b71c1c red darken-4").attr("id", classes[i]);
+      classDivCol.append(classButton);
+      classDivRow.append(classDivCol);
     }
-  }
+    classSelect.append(classDivRow);
 
+    $(".classSelected").on("click", function (event) {
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      var classText = $(this).attr("id");
+      classInput.val(classText);
+      var classText = $(this).attr("id");
+      console.log(classText);
+      getClassInfo(classText);
+    });
+  }
+  function getClassInfo(classSelection) {
+    var classInfo = classSelection.toLowerCase();
+    var classUrl = "https://api.open5e.com/classes/" + classInfo;
+    var classInfoDiv = $(".class-info");
+    $.ajax({
+      method: "GET",
+      url: classUrl
+    }).then(function (classData) {
+      classInfoDiv.empty();
+      var className = $("<p>You have selected " + classSelection + "</p>");
+      var classHitDice = $("<p><b>Hit Dice:</b> " + classData.hit_dice + "</p>");
+      var classHP = $("<p><b>Hit Points at 1st Level:</b> " + classData.hp_at_1st_level + "</p>");
+      var classArmor = $("<p><b>Armor Proficiencies:</b> " + classData.prof_armor + "</p>");
+      var classWeapons = $("<p><b>Weapon Proficiencies:</b> " + classData.prof_weapons + "</p>");
+      var classEquipment = $("<p><b>Starting Equipment:</b> " + classData.equipment + "</p>");
+      classInfoDiv.append(className);
+      classInfoDiv.append(classHitDice);
+      classInfoDiv.append(classHP);
+      classInfoDiv.append(classArmor);
+      classInfoDiv.append(classWeapons);
+      classInfoDiv.append(classEquipment);
+    });
+  }
   //retrieve a list of character races from the open5e api
   function raceList() {
     $.ajax({
@@ -348,16 +383,47 @@ $(document).ready(function () {
 
   //create html dropdown and fill it with the races retrieved from the api
   function renderRaceDropdown(races) {
-    var raceSelect = $("select.race");
+    var raceSelect = $(".race-select");
+    var raceDivRow = $("<div>").attr("class", "row");
     for (i = 0; i < races.length; i++) {
-      var option = $(
-        "<option value=" + races[i] + ">" + races[i] + "</option>"
-      );
-      raceSelect.append(option);
+      var raceDivCol = $("<div>").attr("class", "col s4");
+      var raceButton = $("<button>" + races[i] + "</button>").attr("class", "raceSelected btn-large #b71c1c red darken-4").attr("id", races[i]);
+      raceDivCol.append(raceButton);
+      raceDivRow.append(raceDivCol);
     }
+    raceSelect.append(raceDivRow);
+
+    $(".raceSelected").on("click", function (event) {
+      event.stopPropagation();
+      var raceText = $(this).attr("id");
+      raceInput.val(raceText);
+      var raceText = $(this).attr("id");
+      console.log(raceText);
+      getRaceInfo(raceText);
+    });
   }
 
-  //API calls to get race and  class info for the user
+  function getRaceInfo(raceSelection) {
+    var raceInfo = raceSelection.toLowerCase();
+    var raceInfoDiv = $(".race-info");
+    var raceUrl = "https://api.open5e.com/races/" + raceInfo;
+    $.ajax({
+      method: "GET",
+      url: raceUrl
+    }).then(function (raceData) {
+      raceInfoDiv.empty();
+      var raceName = $("<p>You've selected " + raceSelection + "</p>");
+      var raceAge = $("<p>" + raceData.age + "</p>");
+      var raceSize = $("<p>" + raceData.size + "</p>");
+      var raceSpeed = $("<p>" + raceData.speed_desc + "</p>");
+      var raceLanguages = $("<p>" + raceData.languages + "</p>");
+      raceInfoDiv.append(raceName);
+      raceInfoDiv.append(raceAge);
+      raceInfoDiv.append(raceSize);
+      raceInfoDiv.append(raceSpeed);
+      raceInfoDiv.append(raceLanguages);
+    });
+  }
 
   // class function
 
