@@ -1,11 +1,13 @@
 # Dungeon Bud
 
 **Description**
+
 Dungeon Bud is a web application that allows Dungeons & Dragons players to save characters and campaigns to a database. The goal of the application is to help players save their campaign and character information to a database. Users have unique profiles where they can add, edit or delete the campaigns and characters that they have added to the database. They can also add their characters to other player’s campaigns or add other player's characters to the campaigns they have created.
 
 One thing our team noticed when developing this app is that there are no official, robust API’s for the Dungeons & Dragons game. If we were to scale this project up, taking on the task of building that API would be a goal of our team. It would allow for a more thorough campaign and character creation process.
 
 **User Story**
+
 Given that I am someone who plays Dungeons & Dragons regularily, I want to be able to store information about my characters and the campaigns I have created or am involved with in an online application.
 
 **Build status**
@@ -80,6 +82,7 @@ $("form.character").on("submit", function(event) {
 No installation necessary. Project is hosted here: https://dungeon-bud.herokuapp.com/
 
 **Future development**
+
 Our team identified several opportunities for further developing Dungeon Bud. These would include additional database tables to create more associations between users, developing our own Dungeons & Dragons API, a more robust character creation process, and the ability to build characters based on which version of the game you are using.
 
 **Credits**
