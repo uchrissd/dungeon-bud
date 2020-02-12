@@ -19,8 +19,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // requiring compression js to minify files
-var compression = require("compression");
-app.use(compression);
+// var compression = require("compression");
+// app.use(compression);
 // Requiring our routes
 require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
